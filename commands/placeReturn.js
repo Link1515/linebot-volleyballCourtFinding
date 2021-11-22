@@ -1,5 +1,5 @@
 import { placeData } from '../data.js'
-import placeFlex from '../template/placeFlex.js'
+import template from '../template/placeFlex.js'
 import { distance } from '../distance.js'
 
 export default (event) => {
@@ -7,6 +7,8 @@ export default (event) => {
   const myLongitude = event.message.longitude
 
   const minDistanceData = []
+
+  const placeFlex = JSON.parse(JSON.stringify(template))
 
   for (let i = 0; i < placeData.length; i++) {
     const location = placeData[i].LatLng.split(',')
@@ -37,7 +39,7 @@ export default (event) => {
       size: 'micro',
       hero: {
         type: 'image',
-        url: placeData[minDistanceData[i].index].Photo1,
+        url: new URL(placeData[minDistanceData[i].index].Photo1.split('/').pop(), process.env.SERVICE_URL).toString(),
         size: 'full',
         aspectMode: 'cover',
         aspectRatio: '320:213'
@@ -93,10 +95,6 @@ export default (event) => {
       }
     })
   }
-
-  setTimeout(() => {
-    placeFlex.contents.contents = []
-  }, 100)
 
   console.log(minDistanceData)
   event.reply(placeFlex)
