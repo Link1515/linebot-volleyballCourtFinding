@@ -6,6 +6,7 @@ import linebot from 'linebot'
 // commands
 import placeReturn from './commands/placeReturn.js'
 import go from './commands/go.js'
+import loctionQuickReply from './commands/loctionQuickReply.js'
 
 const app = express()
 
@@ -20,12 +21,15 @@ bot.on('message', (event) => {
     placeReturn(event)
   } else if (event.message.text.startsWith('go ')) {
     go(event, event.message.text.replace('go ', ''))
+  } else if (event.message.text === '找球場') {
+    loctionQuickReply(event)
   } else {
     event.reply('蛤?')
   }
 })
 
 const linebotParser = bot.parser()
+// 為了解決圖檔沒有https問題
 app.get('/:file', (req, res) => {
   axios({
     method: 'get',
