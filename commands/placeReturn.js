@@ -1,4 +1,4 @@
-import { placeData } from '../data.js'
+import { placeData } from '../data/placeData.js'
 import template from '../template/placeFlex.js'
 import { distance } from '../distance.js'
 

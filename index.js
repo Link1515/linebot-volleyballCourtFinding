@@ -7,6 +7,7 @@ import linebot from 'linebot'
 import placeReturn from './commands/placeReturn.js'
 import go from './commands/go.js'
 import loctionQuickReply from './commands/loctionQuickReply.js'
+import todayWeather from './commands/todayWeather.js'
 
 const app = express()
 
@@ -21,8 +22,10 @@ bot.on('message', (event) => {
     placeReturn(event)
   } else if (event.message.text.startsWith('go ')) {
     go(event, event.message.text.replace('go ', ''))
-  } else if (event.message.text === '找球場') {
+  } else if (event.message.text === '球場資訊') {
     loctionQuickReply(event)
+  } else if (event.message.text === '今日天氣') {
+    todayWeather()
   } else {
     event.reply('蛤?')
   }

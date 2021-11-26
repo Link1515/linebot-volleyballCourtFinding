@@ -1,4 +1,4 @@
-import { placeData } from '../data.js'
+import { placeData } from '../data/placeData.js'
 
 export default (event, name) => {
   let address = ''
