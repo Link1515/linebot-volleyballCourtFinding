@@ -21,11 +21,11 @@ bot.on('message', (event) => {
   if (event.message.type === 'location') {
     placeReturn(event)
   } else if (event.message.text.startsWith('go ')) {
-    go(event, event.message.text.replace('go ', ''))
+    go(event)
   } else if (event.message.text === '球場資訊') {
     loctionQuickReply(event)
   } else if (event.message.text === '今日天氣') {
-    todayWeather()
+    todayWeather(event)
   } else {
     event.reply('蛤?')
   }

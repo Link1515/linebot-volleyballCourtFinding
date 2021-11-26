@@ -1,8 +1,8 @@
 import { placeData } from '../data/placeData.js'
 
-export default (event, name) => {
+export default (event) => {
+  const title = event.message.text.replace('go ', '')
   let address = ''
-  const title = name
   let pos = 0
 
   for (let i = 0; i < placeData.length; i++) {
