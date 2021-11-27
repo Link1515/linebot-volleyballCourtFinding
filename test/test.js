@@ -1,6 +1,7 @@
 import axios from 'axios'
 // import fs from 'fs'
 import https from 'https'
+import schedule from 'node-schedule'
 
 const url =
   'https://iplay.sa.gov.tw/api/GymSearchAllList?$format=application/json;odata.metadata=none&Keyword=排球場&City=新北市&GymType=排球場'
@@ -28,10 +29,12 @@ axios.interceptors.response.use(
 axios
   .get(encodeURI(url))
   .then(({ data }) => {
-    console.log(data.length)
+    // fs.writeFileSync('./test/test.json', JSON.stringify(data, null, 2))
   })
   .catch((error) => {
     console.log(error)
   })
 
-console.log([].length)
+schedule.scheduleJob({ second: 1 }, function () {
+  console.log('now is 1s')
+})

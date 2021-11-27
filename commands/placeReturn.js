@@ -37,9 +37,7 @@ export default (event) => {
   }
 
   // 去除過遠球場
-  minDistanceData = minDistanceData.filter((item) => {
-    return item.distance < 15
-  })
+  minDistanceData = minDistanceData.filter(item => item.distance < 15)
 
   if (minDistanceData.length !== 0) {
     for (let i = 0; i < minDistanceData.length; i++) {

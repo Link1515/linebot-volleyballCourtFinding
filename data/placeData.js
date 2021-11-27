@@ -1,6 +1,6 @@
 import axios from 'axios'
 import https from 'https'
-// import schedule from 'node-schedule'
+import schedule from 'node-schedule'
 
 export let placeData = []
 
@@ -33,10 +33,12 @@ async function getData () {
   try {
     const { data: placeDataNewTaipei } = await axios.get(encodeURI(urlNewTaipeiCity))
     const { data: placeDataTaipei } = await axios.get(encodeURI(urlTaipeiCity))
-    placeData = [...placeDataNewTaipei, ...placeDataTaipei]
+    placeData = [...placeDataNewTaipei, ...placeDataTaipei].filter(item => item.OpenState !== 'N')
   } catch (error) {
     console.log(error)
   }
 }
 
 getData()
+
+schedule.scheduleJob({ dayOfWeek: 3 }, getData)
