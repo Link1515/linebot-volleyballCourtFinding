@@ -1,5 +1,7 @@
 # 雙北打排球🏐 line機器人
 
+<a href="https://lin.ee/nncjtFd"><img src="https://scdn.line-apps.com/n/line_add_friends/btn/zh-Hant.png" alt="加入好友" height="36" border="0"></a>
+
 迅速找到周圍最近的5個排球場!
 
 ## 導覽
@@ -10,6 +12,7 @@
 
 ## <a name="addFriend"></a>加為好友
   - 可以透過 ID: `@931qivur`
+  - 點擊 <a href="https://lin.ee/nncjtFd"><img src="https://scdn.line-apps.com/n/line_add_friends/btn/zh-Hant.png" alt="加入好友" height="36" border="0"></a>
   - 或者掃 QRcode <br>
 <img src="https://user-images.githubusercontent.com/88765055/143733825-27b5211e-e61a-45ab-ae35-cb9edd45f09a.png" width="200">
 
