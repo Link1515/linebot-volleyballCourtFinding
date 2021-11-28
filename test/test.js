@@ -35,6 +35,6 @@ axios
     console.log(error)
   })
 
-schedule.scheduleJob({ second: 1 }, function () {
+schedule.scheduleJob({ minute: [31, 32], second: 30 }, function () {
   console.log('now is 1s')
 })

@@ -8,7 +8,7 @@ export default (event) => {
           type: 'action',
           action: {
             type: 'location',
-            label: 'Send location'
+            label: '傳送位置'
           }
         }
       ]

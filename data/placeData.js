@@ -29,8 +29,11 @@ axios.interceptors.response.use(
   }
 )
 
-async function getData () {
+async function getPlaceData () {
   try {
+    const updateTime = new Date(Date.now())
+    console.log('place data update - ' + updateTime.toLocaleString())
+
     const { data: placeDataNewTaipei } = await axios.get(encodeURI(urlNewTaipeiCity))
     const { data: placeDataTaipei } = await axios.get(encodeURI(urlTaipeiCity))
     placeData = [...placeDataNewTaipei, ...placeDataTaipei].filter(item => item.OpenState !== 'N')
@@ -39,6 +42,6 @@ async function getData () {
   }
 }
 
-getData()
+getPlaceData()
 
-schedule.scheduleJob({ dayOfWeek: 3 }, getData)
+schedule.scheduleJob({ dayOfWeek: 3 }, getPlaceData)

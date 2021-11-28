@@ -8,6 +8,7 @@ import placeReturn from './commands/placeReturn.js'
 import go from './commands/go.js'
 import loctionQuickReply from './commands/loctionQuickReply.js'
 import todayWeather from './commands/todayWeather.js'
+import usage from './commands/usage.js'
 
 const app = express()
 
@@ -26,8 +27,10 @@ bot.on('message', (event) => {
     loctionQuickReply(event)
   } else if (event.message.text === '今日天氣') {
     todayWeather(event)
+  } else if (event.message.text === '使用教學') {
+    usage(event)
   } else {
-    event.reply('蛤?')
+    event.reply('請再操作一次')
   }
 })
 
