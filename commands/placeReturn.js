@@ -4,7 +4,7 @@ import { distance } from '../distance.js'
 import { weatherData } from '../data/weatherData.js'
 
 export default (event) => {
-  const precipitation = weatherData[1].time[1].parameter.parameterName
+  const precipitation = weatherData[1].time[0].parameter.parameterName
 
   const myLatitude = event.message.latitude
   const myLongitude = event.message.longitude
@@ -37,7 +37,7 @@ export default (event) => {
   }
 
   // 去除過遠球場
-  minDistanceData = minDistanceData.filter(item => item.distance < 15)
+  minDistanceData = minDistanceData.filter((item) => item.distance < 15)
 
   if (minDistanceData.length !== 0) {
     for (let i = 0; i < minDistanceData.length; i++) {

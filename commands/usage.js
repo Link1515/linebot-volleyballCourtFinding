@@ -10,7 +10,8 @@ export default (event) => {
 
 github: 
 https://github.com/Link1515/linebot-volleyballCourtFinding
-如果有出現bug歡迎透過github跟我說!
+
+如果有出現bug歡迎透過github聯繫我!
 `
   event.reply(usageStr)
 }
