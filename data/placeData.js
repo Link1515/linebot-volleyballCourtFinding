@@ -36,7 +36,7 @@ async function getPlaceData () {
 
     const { data: placeDataNewTaipei } = await axios.get(encodeURI(urlNewTaipeiCity))
     const { data: placeDataTaipei } = await axios.get(encodeURI(urlTaipeiCity))
-    placeData = [...placeDataNewTaipei, ...placeDataTaipei].filter(item => item.OpenState !== 'N')
+    placeData = [...placeDataNewTaipei, ...placeDataTaipei].filter((item) => item.OpenState !== 'N')
   } catch (error) {
     console.log(error)
   }
@@ -44,4 +44,4 @@ async function getPlaceData () {
 
 getPlaceData()
 
-schedule.scheduleJob({ dayOfWeek: 3 }, getPlaceData)
+schedule.scheduleJob({ dayOfWeek: 3, hour: 0 }, getPlaceData)
