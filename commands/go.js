@@ -38,7 +38,7 @@ export default (event) => {
     const discription = weatherData[3].time[0].parameter.parameterName
     const maxTemperature = weatherData[4].time[0].parameter.parameterName
 
-    weatherStr = `今日${discription}，最高溫${maxTemperature}度，最低溫${minTemperature}度，降雨機率${precipitation}%`
+    weatherStr = `${city}今日${discription}，最高溫${maxTemperature}度，最低溫${minTemperature}度，${precipitation > 60 ? '⚠️' : ''}降雨機率${precipitation}%${precipitation > 60 ? '⚠️' : ''}`
 
     event.reply([
       weatherStr,

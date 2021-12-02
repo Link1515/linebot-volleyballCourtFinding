@@ -1,11 +1,8 @@
 import { placeData } from '../data/placeData.js'
 import template from '../template/placeFlex.js'
 import { distance } from '../distance.js'
-import { weatherData } from '../data/weatherData.js'
 
 export default (event) => {
-  const precipitation = weatherData[1].time[0].parameter.parameterName
-
   const myLatitude = event.message.latitude
   const myLongitude = event.message.longitude
 
@@ -85,7 +82,7 @@ export default (event) => {
                       color: '#8c8c8c',
                       size: 'xs',
                       flex: 5,
-                      text: placeData[minDistanceData[i].index].Address
+                      text: '📍' + placeData[minDistanceData[i].index].Address
                     }
                   ]
                 }
@@ -104,12 +101,7 @@ export default (event) => {
     }
     console.log(minDistanceData)
 
-    // 降雨機率小提醒
-    if (+precipitation >= 60) {
-      event.reply([placeFlex, '請點選您想去的球場', `小提醒: 今日的降雨機率為 ${precipitation}%`])
-    } else {
-      event.reply([placeFlex, '請點選您想去的球場'])
-    }
+    event.reply([placeFlex, '請點選您想去的球場'])
   } else {
     event.reply('附近沒有球場')
   }
