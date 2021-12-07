@@ -46,4 +46,6 @@ app.get('/:file', (req, res) => {
   })
 })
 app.post('/', linebotParser)
-app.listen(process.env.PORT || 3000)
+app.listen(process.env.PORT || 3000, () => {
+  console.log('linebot 運作中...')
+})
