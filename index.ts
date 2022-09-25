@@ -2,36 +2,15 @@ import express from 'express'
 import axios from 'axios'
 import https from 'https'
 import 'dotenv/config'
-import linebot from 'linebot'
-// commands
-import placeReturn from './commands/placeReturn.js'
-import go from './commands/go.js'
-import loctionQuickReply from './commands/loctionQuickReply.js'
-import usage from './commands/usage.js'
+
+import routerWebhook from './routes/webhook.route'
 
 const app = express()
+const PORT = process.env.PORT || 3000
 
-const bot = linebot({
-  channelId: process.env.CHANNEL_ID,
-  channelSecret: process.env.CHANNEL_SECRET,
-  channelAccessToken: process.env.CHANNEL_ACCESS_TOKEN
-})
+app.use('/webhook', routerWebhook)
 
-bot.on('message', (event) => {
-  if (event.message.type === 'location') {
-    placeReturn(event)
-  } else if (event.message.text.startsWith('go ')) {
-    go(event)
-  } else if (event.message.text === '球場資訊') {
-    loctionQuickReply(event)
-  } else if (event.message.text === '使用教學') {
-    usage(event)
-  } else {
-    event.reply('請再操作一次')
-  }
-})
-
-// 為了解決圖檔沒有https問題
+// handle image without ssl
 app.get('/:file', (req, res) => {
   axios({
     method: 'get',
@@ -45,8 +24,6 @@ app.get('/:file', (req, res) => {
   })
 })
 
-const linebotParser = bot.parser()
-app.post('/', linebotParser)
-app.listen(process.env.PORT || 3000, () => {
-  console.log('linebot server running ...')
+app.listen(PORT, () => {
+  console.log(`linebot server running at port: ${PORT} ...`)
 })
