@@ -1,5 +1,4 @@
 import axios from 'axios'
-import 'dotenv/config'
 import { placeData } from '../data/placeData.js'
 
 export default (event) => {

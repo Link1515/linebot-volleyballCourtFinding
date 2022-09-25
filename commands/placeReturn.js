@@ -99,7 +99,6 @@ export default (event) => {
         }
       })
     }
-    console.log(minDistanceData)
 
     event.reply([placeFlex, '請點選您想去的球場'])
   } else {

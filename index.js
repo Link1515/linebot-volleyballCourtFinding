@@ -31,7 +31,6 @@ bot.on('message', (event) => {
   }
 })
 
-const linebotParser = bot.parser()
 // 為了解決圖檔沒有https問題
 app.get('/:file', (req, res) => {
   axios({
@@ -45,7 +44,9 @@ app.get('/:file', (req, res) => {
     response.data.pipe(res)
   })
 })
+
+const linebotParser = bot.parser()
 app.post('/', linebotParser)
 app.listen(process.env.PORT || 3000, () => {
-  console.log('linebot 運作中...')
+  console.log('linebot server running ...')
 })
