@@ -43,8 +43,8 @@ export default (event) => {
       weatherStr,
       {
         type: 'location',
-        title: title,
-        address: address,
+        title,
+        address,
         latitude: pos.split(',')[0],
         longitude: pos.split(',')[1]
       }
