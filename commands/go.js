@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { placeData } from '../data/placeData.js'
+import { placeInfoList } from '../data/placeInfoList'
 
 export default (event) => {
   let weatherStr = ''
@@ -9,10 +9,10 @@ export default (event) => {
   let address = ''
   let pos = 0
 
-  for (let i = 0; i < placeData.length; i++) {
-    if (placeData[i].Name === title) {
-      address = placeData[i].Address
-      pos = placeData[i].LatLng
+  for (let i = 0; i < placeInfoList.length; i++) {
+    if (placeInfoList[i].Name === title) {
+      address = placeInfoList[i].Address
+      pos = placeInfoList[i].LatLng
       city = address.slice(0, 3)
       break
     }
