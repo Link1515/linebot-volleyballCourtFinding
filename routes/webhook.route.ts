@@ -14,7 +14,6 @@ router.post('/', async (req: Request, res: Response): Promise<Response> => {
   const results = await Promise.all(
     events.map(async (event: WebhookEvent) => {
       try {
-        // await textEventHandler(event)
         eventHandler(event)
       } catch (err: unknown) {
         if (err instanceof Error) {
