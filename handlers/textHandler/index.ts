@@ -1,5 +1,5 @@
 import { MessageEvent, TextEventMessage, EventSource } from '@line/bot-sdk'
-import { client } from '../linebot'
+import { replyText } from '../../utils/replyText'
 
 export const textHandler =
   (
@@ -8,7 +8,8 @@ export const textHandler =
     source: EventSource
   ) => {
     switch (message.text) {
-      case 'test':
-        return client.replyMessage(replyToken, { type: 'text', text: 'suc!' })
+      // message start with "go "
+      case message.text.match(/^go\s/)?.input:
+        return replyText(replyToken, ['aaa', 'bbb'])
     }
   }
