@@ -1,5 +1,5 @@
 import { MessageEvent, TextEventMessage, EventSource } from '@line/bot-sdk'
-import { replyText } from '../../utils/replyText'
+import { showPlaceInfo } from './functions/showPlaceInfo'
 
 export const textHandler =
   (
@@ -10,6 +10,6 @@ export const textHandler =
     switch (message.text) {
       // message start with "go "
       case message.text.match(/^go\s/)?.input:
-        return replyText(replyToken, ['aaa', 'bbb'])
+        return showPlaceInfo(replyToken, message)
     }
   }

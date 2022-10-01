@@ -1,26 +1,35 @@
-import axios from 'axios'
-import type { TextEventMessage } from '@line/bot-sdk'
+import type { TextEventMessage, MessageEvent, LocationMessage } from '@line/bot-sdk'
+import { client } from '../../../linebot'
 import { placeInfoList } from '../../../data/placeInfoList'
-import { replyText } from '../../../utils/replyText'
+import { weatherInfo } from '../../../data/weatherInfo'
 
-export const showPlaceInfo = (message: TextEventMessage) => {
-  const placeName = message.text.replace('go ', '')
+export const showPlaceInfo = async (replyToken:MessageEvent['replyToken'], message: TextEventMessage) => {
+  const title = message.text.replace('go ', '')
 
   // query place info
   let city:string
   let address: string
-  let latitude: string
-  let longitude: string
+  let latitude: number
+  let longitude: number
 
   for (const placeInfo of placeInfoList) {
-    if (placeInfo.Name === placeName) {
+    if (placeInfo.Name === title) {
       address = placeInfo.Address
       city = placeInfo.Address.slice(0, 3)
-      latitude = placeInfo.LatLng.split(',')[0]
-      longitude = placeInfo.LatLng.split(',')[1]
-      break
+      latitude = +placeInfo.LatLng.split(',')[0]
+      longitude = +placeInfo.LatLng.split(',')[1]
+
+      // get weather info
+      await weatherInfo(city)
+
+      // reply message
+      return client.replyMessage(replyToken, {
+        type: 'location',
+        title,
+        address,
+        latitude,
+        longitude
+      } as LocationMessage)
     }
   }
-
-  // get weather info
 }
