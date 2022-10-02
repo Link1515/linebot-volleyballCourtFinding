@@ -1,2 +1,2 @@
 export * from './replyText'
-export * from './distanceLatLon'
+export * from './calculateDistance'

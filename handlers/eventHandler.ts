@@ -1,6 +1,7 @@
 import { WebhookEvent } from '@line/bot-sdk'
 import { replyText } from '../utils'
 import { textHandler } from './textHandler'
+import { locationHandler } from './locationHandler'
 
 export const eventHandler = (event: WebhookEvent) => {
   const { type: eventType } = event
@@ -10,8 +11,8 @@ export const eventHandler = (event: WebhookEvent) => {
       switch (message.type) {
         case 'text':
           return textHandler(message, event.replyToken, event.source)
-        // case 'location':
-        //   return handleLocation(message, event.replyToken)
+        case 'location':
+          return locationHandler(message, event.replyToken)
         default:
           return console.log(`Unhandle event type: ${JSON.stringify(message)}`)
       }

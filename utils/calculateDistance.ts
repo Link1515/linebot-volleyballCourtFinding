@@ -4,16 +4,16 @@
 // lon2 點 2 的經度
 // unit 單位，不傳是英里，K 是公里，N 是海里
 
-export interface Position {
+export interface Location {
   latitude: number
   longitude: number
 }
 
 export type Unit = 'K' | 'N'
 
-export const distance = (position1: Position, position2: Position, unit:Unit) => {
-  const { latitude: lat1, longitude: lon1 } = position1
-  const { latitude: lat2, longitude: lon2 } = position2
+export const calculateDistance = (location1: Location, location2: Location, unit:Unit) => {
+  const { latitude: lat1, longitude: lon1 } = location1
+  const { latitude: lat2, longitude: lon2 } = location2
 
   if (lat1 === lat2 && lon1 === lon2) {
     return 0

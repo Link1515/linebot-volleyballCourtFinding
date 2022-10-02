@@ -1,13 +1,14 @@
 import type { PlaceInfo } from '../data/placeInfoList'
 import type { ContentsContent } from './types'
 
-export const createPlacesBubbles = (placeInfoList: PlaceInfo[]) => {
+export const createPlacesBubbles = (placeInfoList: Required<PlaceInfo>[]) => {
   const contentBubbles: ContentsContent[] = placeInfoList.map(placeInfo => ({
     type: 'bubble',
     size: 'micro',
     hero: {
       type: 'image',
-      url: new URL(placeInfo.Photo1.split('/').pop() as string, process.env.SERVICE_URL).toString(),
+      // url: new URL(placeInfo.Photo1.split('/').pop() as string, process.env.SERVICE_URL).toString(),
+      url: placeInfo.Photo1,
       size: 'full',
       aspectMode: 'cover',
       aspectRatio: '320:213'
@@ -26,7 +27,7 @@ export const createPlacesBubbles = (placeInfoList: PlaceInfo[]) => {
         },
         {
           type: 'text',
-          text: `距離: 約${Math.round((placeInfo.distance ?? 0 + Number.EPSILON) * 100) / 100}公里`,
+          text: `距離: 約${Math.round((placeInfo.distance + Number.EPSILON) * 100) / 100}公里`,
           size: '12px',
           align: 'center',
           weight: 'bold'
