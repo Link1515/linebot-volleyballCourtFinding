@@ -1,5 +1,5 @@
 import { MessageEvent } from '@line/bot-sdk'
-import { replyText } from '../../../utils/replyText'
+import { replyText } from '../../../utils'
 
 const tutorialStr =
 `歡迎使用 超級排🏐球場 line機器人

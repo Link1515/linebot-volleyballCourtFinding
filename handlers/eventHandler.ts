@@ -1,5 +1,5 @@
 import { WebhookEvent } from '@line/bot-sdk'
-import { replyText } from '../utils/replyText'
+import { replyText } from '../utils'
 import { textHandler } from './textHandler'
 
 export const eventHandler = (event: WebhookEvent) => {
