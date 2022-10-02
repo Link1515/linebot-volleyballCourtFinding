@@ -1,7 +1,10 @@
 import { MessageEvent, TextEventMessage, EventSource } from '@line/bot-sdk'
-import { showPlaceInfo } from './functions/showPlaceInfo'
-import { locationQuickReply } from './functions/locationQuickReply'
-import { tutorialMsg } from './functions/tutorialMsg'
+import {
+  showPlaceInfo,
+  locationQuickReply,
+  tutorialMsg,
+  errorMsg
+} from './functions'
 
 export const textHandler =
   (
@@ -16,6 +19,8 @@ export const textHandler =
       case '球場資訊':
         return locationQuickReply(replyToken)
       case '使用教學':
-        return tutorialMsg(replyToken, message)
+        return tutorialMsg(replyToken)
+      default:
+        return errorMsg(replyToken)
     }
   }
