@@ -20,16 +20,21 @@ export const showPlaceInfo = async (replyToken:MessageEvent['replyToken'], messa
       longitude = +placeInfo.LatLng.split(',')[1]
 
       // get weather info
-      await weatherInfo(city)
+      const weatherStr = await weatherInfo(city) as string
 
       // reply message
-      return client.replyMessage(replyToken, {
+      return client.replyMessage(replyToken, [{
         type: 'location',
         title,
         address,
         latitude,
         longitude
-      } as LocationMessage)
+      } as LocationMessage,
+      {
+        type: 'text',
+        text: weatherStr
+      }
+      ])
     }
   }
 }

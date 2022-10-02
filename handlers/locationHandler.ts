@@ -52,7 +52,20 @@ export const locationHandler = (message: LocationEventMessage, replyToken:Messag
   // remove place farer than minDistance
   resultPlaces = resultPlaces.filter(place => place.distance < maxDistance)
 
+  if (resultPlaces.length === 0) {
+    return client.replyMessage(replyToken, {
+      type: 'text',
+      text: '附近沒有球場'
+    })
+  }
+
   const flexPlaces = createFlexPlaces(resultPlaces)
 
-  return client.replyMessage(replyToken, flexPlaces as FlexMessage)
+  return client.replyMessage(replyToken,
+    [
+      flexPlaces as FlexMessage,
+      {
+        type: 'text',
+        text: '請點選您想去的球場'
+      }])
 }
