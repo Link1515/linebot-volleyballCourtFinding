@@ -2,7 +2,7 @@ import axios from 'axios'
 import https from 'https'
 import schedule from 'node-schedule'
 
-interface PlaceInfo {
+export interface PlaceInfo {
   GymID: number
   Name: string
   OperationTel: string
@@ -17,6 +17,7 @@ interface PlaceInfo {
   OpenState: string
   Declaration: null | string
   LandAttrName: string
+  distance?: number
 }
 
 export let placeInfoList: PlaceInfo[] = []
