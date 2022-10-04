@@ -1,27 +1,17 @@
 import express from 'express'
-import axios from 'axios'
-import https from 'https'
 import 'dotenv/config'
 
-import routerWebhook from './routes/webhook.route'
+import routeWebhook from './routes/webhook.route'
+import routeImage from './routes/image.route'
 
 const app = express()
 const PORT = process.env.PORT || 3000
 
-app.use('/webhook', routerWebhook)
+app.use('/webhook', routeWebhook)
+app.use('/image', routeImage)
 
-// handle image without ssl
-app.get('/:file', (req, res) => {
-  axios({
-    method: 'get',
-    url: encodeURI('https://iplay.sa.gov.tw/Upload/photogym/' + req.params.file),
-    responseType: 'stream',
-    httpsAgent: new https.Agent({
-      rejectUnauthorized: false
-    })
-  }).then((response) => {
-    response.data.pipe(res)
-  })
+app.use('*', (req, res) => {
+  res.status(404).send('not found')
 })
 
 app.listen(PORT, () => {

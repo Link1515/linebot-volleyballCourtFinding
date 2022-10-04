@@ -67,5 +67,6 @@ export const locationHandler = (message: LocationEventMessage, replyToken:Messag
       {
         type: 'text',
         text: '請點選您想去的球場'
-      }])
+      }
+    ])
 }
