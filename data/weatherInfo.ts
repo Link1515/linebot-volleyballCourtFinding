@@ -1,0 +1,64 @@
+import axios from 'axios'
+
+export interface Parameter {
+  parameterName: string;
+  parameterValue?: string;
+  parameterUnit?: string;
+}
+
+export interface Time {
+  startTime: string;
+  endTime: string;
+  parameter: Parameter;
+}
+
+export interface WeatherElement {
+  elementName: string;
+  time: Time[];
+}
+
+export interface Location {
+  locationName: string;
+  weatherElement: WeatherElement[];
+}
+
+export interface Records {
+  datasetDescription: string;
+  location: Location[];
+}
+
+export interface Field {
+  id: string;
+  type: string;
+}
+
+export interface Result {
+  resource_id: string;
+  fields: Field[];
+}
+
+export interface WeatherApiData {
+  success: string;
+  result: Result;
+  records: Records;
+}
+
+export const weatherInfo = async (city: string) => {
+  try {
+    const { data }: {data:WeatherApiData} = await axios
+      .get(encodeURI('https://opendata.cwb.gov.tw/api/v1/rest/datastore/F-C0032-001?Authorization=' +
+        process.env.WEATHER_API_KEY +
+        '&locationName=' + city))
+
+    const weather = data.records.location[0].weatherElement
+
+    const precipitation = weather[1].time[0].parameter.parameterName
+    const minTemperature = weather[2].time[0].parameter.parameterName
+    const discription = weather[3].time[0].parameter.parameterName
+    const maxTemperature = weather[4].time[0].parameter.parameterName
+
+    return `${city}今日${discription}，最高溫${maxTemperature}度，最低溫${minTemperature}度，${+precipitation > 60 ? '⚠️' : ''}降雨機率${precipitation}%${+precipitation > 60 ? '⚠️' : ''}`
+  } catch (error) {
+    console.log(error)
+  }
+}
