@@ -10,7 +10,7 @@ const PORT = process.env.PORT || 3000
 app.use('/webhook', routeWebhook)
 app.use('/image', routeImage)
 
-app.use('*', (req, res) => {
+app.use('*', (_, res) => {
   res.status(404).send('not found')
 })
 
