@@ -57,9 +57,6 @@ export const locationHandler = (message: LocationEventMessage, replyToken:Messag
     }
   })
 
-  console.log('====== test =======')
-  console.log(resultPlaces)
-
   /**
    * remove place farer than minDistance
    */
