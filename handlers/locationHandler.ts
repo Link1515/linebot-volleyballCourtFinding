@@ -6,7 +6,9 @@ import { calculateDistance, Location } from '../utils'
 import { createFlexPlaces } from '../template'
 
 const amountOfPlaces = 5
-// max place distance send to user (in km)
+/**
+ * max place distance send to user (in km)
+ */
 const maxDistance = 15
 
 export const locationHandler = (message: LocationEventMessage, replyToken:MessageEvent['replyToken']) => {
@@ -15,7 +17,9 @@ export const locationHandler = (message: LocationEventMessage, replyToken:Messag
     longitude: message.longitude
   }
 
-  // five closest places around user
+  /**
+   * five closest places around user
+   */
   let resultPlaces: Required<PlaceInfo>[] = []
 
   placeInfoList.forEach((placeInfo, index) => {
@@ -25,7 +29,9 @@ export const locationHandler = (message: LocationEventMessage, replyToken:Messag
     }
 
     if (index < amountOfPlaces) {
-      // if index less than amountOfPlace, then just push into resultPlaces
+      /**
+       * if index less than amountOfPlace, then just push into resultPlaces
+       */
       resultPlaces.push({
         ...placeInfo,
         distance: calculateDistance(userLocation, targetLocation, 'K')
@@ -33,7 +39,9 @@ export const locationHandler = (message: LocationEventMessage, replyToken:Messag
 
       resultPlaces.sort((a, b) => a.distance - b.distance)
     } else {
-      // if index greater than amountOfPlace, then compare comparedDistance(next placeInfo distance) to farthestDistanceOfResultPlaces
+      /**
+       * if index greater than amountOfPlace, then compare comparedDistance(next placeInfo distance) to farthestDistanceOfResultPlaces
+       */
       const farthestDistanceOfResultPlaces = resultPlaces[amountOfPlaces - 1].distance
       const comparedDistance = calculateDistance(userLocation, targetLocation, 'K')
 
@@ -49,7 +57,12 @@ export const locationHandler = (message: LocationEventMessage, replyToken:Messag
     }
   })
 
-  // remove place farer than minDistance
+  console.log('====== test =======')
+  console.log(resultPlaces)
+
+  /**
+   * remove place farer than minDistance
+   */
   resultPlaces = resultPlaces.filter(place => place.distance < maxDistance)
 
   if (resultPlaces.length === 0) {
