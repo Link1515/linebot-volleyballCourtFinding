@@ -1,7 +1,8 @@
 import type { MessageEvent, LocationEventMessage, FlexMessage } from '@line/bot-sdk'
 import type { PlaceInfo } from '../data/placeInfoList'
 import { client } from '../linebot'
-import { placeInfoList } from '../data/placeInfoList'
+// import { placeInfoList } from '../data/placeInfoList'
+import axios from 'axios'
 import { calculateDistance, Location } from '../utils'
 import { createFlexPlaces } from '../template'
 
@@ -11,72 +12,82 @@ const amountOfPlaces = 5
  */
 const maxDistance = 15
 
-export const locationHandler = (message: LocationEventMessage, replyToken:MessageEvent['replyToken']) => {
-  const userLocation: Location = {
-    latitude: message.latitude,
-    longitude: message.longitude
-  }
+const placeUrl =
+  'https://iplay.sa.gov.tw/api/GymSearchAllList?$format=application/json;odata.metadata=none&Keyword=排球場'
 
-  /**
-   * five closest places around user
-   */
-  let resultPlaces: Required<PlaceInfo>[] = []
+export const locationHandler = (message: LocationEventMessage, replyToken: MessageEvent['replyToken']) => {
+  axios.get(encodeURI(placeUrl)).then(({ data }) => {
+    console.log('====== test ======')
+    console.log(data)
 
-  placeInfoList.forEach((placeInfo, index) => {
-    const targetLocation: Location = {
-      latitude: +placeInfo.LatLng.split(',')[0],
-      longitude: +placeInfo.LatLng.split(',')[1]
+    const placeInfoList: PlaceInfo[] = data.filter((placeInfo: PlaceInfo) => placeInfo.OpenState !== 'N')
+
+    const userLocation: Location = {
+      latitude: message.latitude,
+      longitude: message.longitude
     }
 
-    if (index < amountOfPlaces) {
-      /**
-       * if index less than amountOfPlace, then just push into resultPlaces
-       */
-      resultPlaces.push({
-        ...placeInfo,
-        distance: calculateDistance(userLocation, targetLocation, 'K')
-      })
+    /**
+     * five closest places around user
+     */
+    let resultPlaces: Required<PlaceInfo>[] = []
 
-      resultPlaces.sort((a, b) => a.distance - b.distance)
-    } else {
-      /**
-       * if index greater than amountOfPlace, then compare comparedDistance(next placeInfo distance) to farthestDistanceOfResultPlaces
-       */
-      const farthestDistanceOfResultPlaces = resultPlaces[amountOfPlaces - 1].distance
-      const comparedDistance = calculateDistance(userLocation, targetLocation, 'K')
+    placeInfoList.forEach((placeInfo, index) => {
+      const targetLocation: Location = {
+        latitude: +placeInfo.LatLng.split(',')[0],
+        longitude: +placeInfo.LatLng.split(',')[1]
+      }
 
-      if (comparedDistance < farthestDistanceOfResultPlaces) {
-        resultPlaces.pop()
+      if (index < amountOfPlaces) {
+        /**
+         * if index less than amountOfPlace, then just push into resultPlaces
+         */
         resultPlaces.push({
           ...placeInfo,
           distance: calculateDistance(userLocation, targetLocation, 'K')
         })
 
         resultPlaces.sort((a, b) => a.distance - b.distance)
+      } else {
+        /**
+         * if index greater than amountOfPlace, then compare comparedDistance(next placeInfo distance) to farthestDistanceOfResultPlaces
+         */
+        const farthestDistanceOfResultPlaces = resultPlaces[amountOfPlaces - 1].distance
+        const comparedDistance = calculateDistance(userLocation, targetLocation, 'K')
+
+        if (comparedDistance < farthestDistanceOfResultPlaces) {
+          resultPlaces.pop()
+          resultPlaces.push({
+            ...placeInfo,
+            distance: calculateDistance(userLocation, targetLocation, 'K')
+          })
+
+          resultPlaces.sort((a, b) => a.distance - b.distance)
+        }
       }
-    }
-  })
-
-  /**
-   * remove place farer than minDistance
-   */
-  resultPlaces = resultPlaces.filter(place => place.distance < maxDistance)
-
-  if (resultPlaces.length === 0) {
-    return client.replyMessage(replyToken, {
-      type: 'text',
-      text: '附近沒有球場'
     })
-  }
 
-  const flexPlaces = createFlexPlaces(resultPlaces)
+    /**
+     * remove place farer than minDistance
+     */
+    resultPlaces = resultPlaces.filter(place => place.distance < maxDistance)
 
-  return client.replyMessage(replyToken,
-    [
-      flexPlaces as FlexMessage,
-      {
+    if (resultPlaces.length === 0) {
+      return client.replyMessage(replyToken, {
         type: 'text',
-        text: '請點選您想去的球場'
-      }
-    ])
+        text: '附近沒有球場'
+      })
+    }
+
+    const flexPlaces = createFlexPlaces(resultPlaces)
+
+    return client.replyMessage(replyToken,
+      [
+        flexPlaces as FlexMessage,
+        {
+          type: 'text',
+          text: '請點選您想去的球場'
+        }
+      ])
+  })
 }
