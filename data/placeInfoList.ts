@@ -48,10 +48,14 @@ axios.interceptors.response.use(
 async function getPlaceData () {
   try {
     const updateTime = new Date(Date.now())
-    console.log('place data update - ' + updateTime.toLocaleString())
 
     const { data } = await axios.get(encodeURI(placeUrl))
-    placeInfoList = data.filter((placeInfo:PlaceInfo) => placeInfo.OpenState !== 'N')
+    placeInfoList = data.filter((placeInfo: PlaceInfo) => placeInfo.OpenState !== 'N')
+
+    console.log('====== test =======')
+    console.log(placeInfoList)
+
+    console.log('place data update - ' + updateTime.toLocaleString())
   } catch (error) {
     console.log(error)
   }
