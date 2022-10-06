@@ -52,9 +52,6 @@ async function getPlaceData () {
     const { data } = await axios.get(encodeURI(placeUrl))
     placeInfoList = data.filter((placeInfo: PlaceInfo) => placeInfo.OpenState !== 'N')
 
-    console.log('====== test =======')
-    console.log(placeInfoList)
-
     console.log('place data update - ' + updateTime.toLocaleString())
   } catch (error) {
     console.log(error)
