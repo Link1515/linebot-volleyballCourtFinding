@@ -43,8 +43,17 @@ export interface WeatherApiData {
   records: Records;
 }
 
+/**
+ * Cities that cannot get weather info. It should be convert '市' to '縣'
+ */
+const cityConvertList = ['彰化市', '嘉義市', '花蓮市']
+
 export const weatherInfo = async (city: string) => {
   try {
+    if (cityConvertList.includes(city)) {
+      city = city.replace(/市/, '縣')
+    }
+
     const { data }: {data:WeatherApiData} = await axios
       .get(encodeURI('https://opendata.cwb.gov.tw/api/v1/rest/datastore/F-C0032-001?Authorization=' +
         process.env.WEATHER_API_KEY +
