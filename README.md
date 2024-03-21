@@ -1,5 +1,7 @@
 # 超級排🏐球場 line機器人
 
+[PHP 版本](https://github.com/Link1515/linebot-volleyballCourtFinding-php/blob/master/README.md)
+
 <a href="https://lin.ee/nncjtFd"><img src="https://scdn.line-apps.com/n/line_add_friends/btn/zh-Hant.png" alt="加入好友" height="36" border="0"></a>
 
 迅速找到周圍最近的5個排球場!
