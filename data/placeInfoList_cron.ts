@@ -1,6 +1,6 @@
 import axios from 'axios'
 import https from 'https'
-import schedule from 'node-schedule'
+// import schedule from 'node-schedule'
 
 export interface PlaceInfo {
   GymID: number
@@ -63,4 +63,4 @@ async function getPlaceData() {
 
 getPlaceData()
 
-schedule.scheduleJob({ dayOfWeek: 3, hour: 0 }, getPlaceData)
+// schedule.scheduleJob({ dayOfWeek: 3, hour: 0 }, getPlaceData)
