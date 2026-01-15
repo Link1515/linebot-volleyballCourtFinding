@@ -5,10 +5,8 @@
   "description": "linebot-volleyballCourt",
   "main": "index.ts",
   "scripts": {
-    "dev": "nodemon --experimental-specifier-resolution=node index.ts",
-    "build": "npm run clean && tsc",
-    "start": "node --experimental-specifier-resolution=node dist/index.js",
-    "clean": "rimraf ./dist"
+    "dev": "bun --hot index.ts",
+    "start": "bun index.ts"
   },
   "repository": {
     "type": "git",
