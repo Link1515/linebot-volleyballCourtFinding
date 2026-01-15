@@ -48,7 +48,7 @@ const WEATHER_API_BASE_URL = 'https://opendata.cwa.gov.tw/api/v1/rest/datastore/
 /**
  * Cities that cannot get weather info. It should be convert '市' to '縣'
  */
-const cityConvertList = ['彰化市', '嘉義市', '花蓮市']
+const cityConvertList = ['彰化市', '花蓮市']
 
 export const weatherInfo = async (city: string) => {
   try {
