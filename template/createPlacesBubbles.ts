@@ -7,8 +7,6 @@ export const createPlacesBubbles = (placeInfoList: Required<PlaceInfo>[]) => {
     size: 'micro',
     hero: {
       type: 'image',
-      // deal with img url without ssl
-      // url: new URL(placeInfo.Photo1.split('/').pop() as string, process.env.SERVICE_URL).toString(),
       url: encodeURI(placeInfo.Photo1),
       size: 'full',
       aspectMode: 'cover',
