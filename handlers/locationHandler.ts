@@ -1,8 +1,8 @@
 import type { MessageEvent, LocationEventMessage, FlexMessage } from '@line/bot-sdk'
-import { client } from '../linebot'
-import { placeInfoList, PlaceInfo } from '../data/placeInfoList'
-import { calculateDistance, Location } from '../utils'
-import { createFlexPlaces } from '../template'
+import { client } from '@projectRoot/linebot'
+import { placeInfoList, PlaceInfo } from '@data/placeInfoList'
+import { calculateDistance, Location } from '@utils/index'
+import { createFlexPlaces } from '@template/index'
 
 const amountOfPlaces = 5
 /**

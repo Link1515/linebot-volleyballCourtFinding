@@ -1,5 +1,5 @@
 import { MessageEvent } from '@line/bot-sdk'
-import { replyText } from '../../../utils'
+import { replyText } from '@utils/index'
 
 const errorStr = '請再操作一次'
 

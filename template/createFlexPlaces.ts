@@ -1,6 +1,6 @@
-import type { FlexPlaces } from './types'
-import type { PlaceInfo } from '../data/placeInfoList'
-import { createPlacesBubbles } from './createPlacesBubbles'
+import type { FlexPlaces } from '@template/types'
+import type { PlaceInfo } from '@data/placeInfoList'
+import { createPlacesBubbles } from '@template/createPlacesBubbles'
 
 export const createFlexPlaces = (placeInfoList: Required<PlaceInfo>[]) => {
   const flexPlaces: FlexPlaces = {

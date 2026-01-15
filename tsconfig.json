@@ -1,0 +1,27 @@
+{
+    "compilerOptions": {
+        "esModuleInterop": true,
+        "allowSyntheticDefaultImports": true,
+        "baseUrl": ".",
+        "paths": {
+            "@projectRoot/*": [
+                "*"
+            ],
+            "@handlers/*": [
+                "handlers/*"
+            ],
+            "@routes/*": [
+                "routes/*"
+            ],
+            "@utils/*": [
+                "utils/*"
+            ],
+            "@data/*": [
+                "data/*"
+            ],
+            "@template/*": [
+                "template/*"
+            ]
+        }
+    }
+}

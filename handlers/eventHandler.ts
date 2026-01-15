@@ -1,7 +1,7 @@
 import { WebhookEvent } from '@line/bot-sdk'
-import { replyText } from '../utils'
-import { textHandler } from './textHandler'
-import { locationHandler } from './locationHandler'
+import { replyText } from '@utils/index'
+import { textHandler } from '@handlers/textHandler'
+import { locationHandler } from '@handlers/locationHandler'
 
 export const eventHandler = (event: WebhookEvent) => {
   const { type: eventType } = event

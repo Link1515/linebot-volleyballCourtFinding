@@ -1,7 +1,7 @@
 import express, { Request, Response } from 'express'
 import { middleware, WebhookEvent } from '@line/bot-sdk'
-import { middlewareConfig } from '../linebot'
-import { eventHandler } from '../handlers/eventHandler'
+import { middlewareConfig } from '@projectRoot/linebot'
+import { eventHandler } from '@handlers/eventHandler'
 
 const router = express.Router()
 

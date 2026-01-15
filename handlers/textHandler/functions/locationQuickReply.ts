@@ -1,5 +1,5 @@
 import { MessageEvent } from '@line/bot-sdk'
-import { client } from '../../../linebot'
+import { client } from '@projectRoot/linebot'
 
 export const locationQuickReply = (replyToken: MessageEvent['replyToken']) => {
   return client.replyMessage(replyToken, {
