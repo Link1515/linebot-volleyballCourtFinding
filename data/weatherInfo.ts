@@ -1,46 +1,46 @@
 import axios from 'axios'
 
 export interface Parameter {
-  parameterName: string;
-  parameterValue?: string;
-  parameterUnit?: string;
+  parameterName: string
+  parameterValue?: string
+  parameterUnit?: string
 }
 
 export interface Time {
-  startTime: string;
-  endTime: string;
-  parameter: Parameter;
+  startTime: string
+  endTime: string
+  parameter: Parameter
 }
 
 export interface WeatherElement {
-  elementName: string;
-  time: Time[];
+  elementName: string
+  time: Time[]
 }
 
 export interface Location {
-  locationName: string;
-  weatherElement: WeatherElement[];
+  locationName: string
+  weatherElement: WeatherElement[]
 }
 
 export interface Records {
-  datasetDescription: string;
-  location: Location[];
+  datasetDescription: string
+  location: Location[]
 }
 
 export interface Field {
-  id: string;
-  type: string;
+  id: string
+  type: string
 }
 
 export interface Result {
-  resource_id: string;
-  fields: Field[];
+  resource_id: string
+  fields: Field[]
 }
 
 export interface WeatherApiData {
-  success: string;
-  result: Result;
-  records: Records;
+  success: string
+  result: Result
+  records: Records
 }
 
 /**
@@ -54,10 +54,14 @@ export const weatherInfo = async (city: string) => {
       city = city.replace(/市/, '縣')
     }
 
-    const { data }: {data:WeatherApiData} = await axios
-      .get(encodeURI('https://opendata.cwb.gov.tw/api/v1/rest/datastore/F-C0032-001?Authorization=' +
-        process.env.WEATHER_API_KEY +
-        '&locationName=' + city))
+    const { data }: { data: WeatherApiData } = await axios.get(
+      encodeURI(
+        'https://opendata.cwb.gov.tw/api/v1/rest/datastore/F-C0032-001?Authorization=' +
+          process.env.WEATHER_API_KEY +
+          '&locationName=' +
+          city
+      )
+    )
 
     const weather = data.records.location[0].weatherElement
 

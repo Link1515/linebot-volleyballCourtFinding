@@ -1,7 +1,7 @@
 import { MessageEvent } from '@line/bot-sdk'
 import { client } from '../../../linebot'
 
-export const locationQuickReply = (replyToken:MessageEvent['replyToken']) => {
+export const locationQuickReply = (replyToken: MessageEvent['replyToken']) => {
   return client.replyMessage(replyToken, {
     type: 'text',
     text: '請點下方的按鈕，傳送您的位置',

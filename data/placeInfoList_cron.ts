@@ -22,7 +22,9 @@ export interface PlaceInfo {
 
 export let placeInfoList: PlaceInfo[] = []
 
-const GYM_API_URL = encodeURI('https://iplay.sa.gov.tw/api/GymSearchAllList?$format=application/json;odata.metadata=none&Keyword=排球場')
+const GYM_API_URL = encodeURI(
+  'https://iplay.sa.gov.tw/api/GymSearchAllList?$format=application/json;odata.metadata=none&Keyword=排球場'
+)
 
 const agent = new https.Agent({
   rejectUnauthorized: false
@@ -44,12 +46,14 @@ axios.interceptors.response.use(
   }
 )
 
-async function getPlaceData () {
+async function getPlaceData() {
   try {
     const updateTime = new Date(Date.now())
 
     const { data } = await axios.get(GYM_API_URL)
-    placeInfoList = data.filter((placeInfo: PlaceInfo) => placeInfo.OpenState !== 'N')
+    placeInfoList = data.filter(
+      (placeInfo: PlaceInfo) => placeInfo.OpenState !== 'N'
+    )
 
     console.log('place data update - ' + updateTime.toLocaleString())
   } catch (error) {
