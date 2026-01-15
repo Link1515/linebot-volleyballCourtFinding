@@ -1,16 +1,9 @@
-import type {
-  TextEventMessage,
-  MessageEvent,
-  LocationMessage
-} from '@line/bot-sdk'
+import type { TextEventMessage, MessageEvent, LocationMessage } from '@line/bot-sdk'
 import { client } from '../../../linebot'
 import { placeInfoList } from '../../../data/placeInfoList'
 import { weatherInfo } from '../../../data/weatherInfo'
 
-export const showPlaceInfo = async (
-  replyToken: MessageEvent['replyToken'],
-  message: TextEventMessage
-) => {
+export const showPlaceInfo = async (replyToken: MessageEvent['replyToken'], message: TextEventMessage) => {
   const title = message.text.replace('go ', '')
 
   // query place info

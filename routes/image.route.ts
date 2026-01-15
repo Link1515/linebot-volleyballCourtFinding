@@ -8,9 +8,7 @@ const router = express.Router()
 router.get('/:file', (req, res) => {
   axios({
     method: 'get',
-    url: encodeURI(
-      'https://iplay.sa.gov.tw/Upload/photogym/' + req.params.file
-    ),
+    url: encodeURI('https://iplay.sa.gov.tw/Upload/photogym/' + req.params.file),
     responseType: 'stream',
     httpsAgent: new https.Agent({
       rejectUnauthorized: false

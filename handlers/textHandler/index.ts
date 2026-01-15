@@ -1,16 +1,7 @@
 import { MessageEvent, TextEventMessage, EventSource } from '@line/bot-sdk'
-import {
-  showPlaceInfo,
-  locationQuickReply,
-  tutorialMsg,
-  errorMsg
-} from './functions'
+import { showPlaceInfo, locationQuickReply, tutorialMsg, errorMsg } from './functions'
 
-export const textHandler = (
-  message: TextEventMessage,
-  replyToken: MessageEvent['replyToken'],
-  source: EventSource
-) => {
+export const textHandler = (message: TextEventMessage, replyToken: MessageEvent['replyToken'], source: EventSource) => {
   switch (message.text) {
     // message start with "go "
     case message.text.match(/^go\s/)?.input:

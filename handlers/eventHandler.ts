@@ -25,10 +25,7 @@ export const eventHandler = (event: WebhookEvent) => {
       return console.log(`Unfollowed this bot: ${JSON.stringify(event)}`)
 
     case 'join':
-      return replyText(
-        event.replyToken,
-        'hi, 大家好，歡迎使用 超級排🏐球場 line機器人'
-      )
+      return replyText(event.replyToken, 'hi, 大家好，歡迎使用 超級排🏐球場 line機器人')
 
     case 'leave':
       return console.log(`Left: ${JSON.stringify(event)}`)

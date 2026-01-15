@@ -11,11 +11,7 @@ export interface Location {
 
 export type Unit = 'K' | 'N'
 
-export const calculateDistance = (
-  location1: Location,
-  location2: Location,
-  unit: Unit
-) => {
+export const calculateDistance = (location1: Location, location2: Location, unit: Unit) => {
   const { latitude: lat1, longitude: lon1 } = location1
   const { latitude: lat2, longitude: lon2 } = location2
 
@@ -26,9 +22,7 @@ export const calculateDistance = (
     const radlat2 = (Math.PI * lat2) / 180
     const theta = lon1 - lon2
     const radtheta = (Math.PI * theta) / 180
-    let dist =
-      Math.sin(radlat1) * Math.sin(radlat2) +
-      Math.cos(radlat1) * Math.cos(radlat2) * Math.cos(radtheta)
+    let dist = Math.sin(radlat1) * Math.sin(radlat2) + Math.cos(radlat1) * Math.cos(radlat2) * Math.cos(radtheta)
     if (dist > 1) {
       dist = 1
     }

@@ -1,8 +1,4 @@
-import type {
-  MessageEvent,
-  LocationEventMessage,
-  FlexMessage
-} from '@line/bot-sdk'
+import type { MessageEvent, LocationEventMessage, FlexMessage } from '@line/bot-sdk'
 import { client } from '../linebot'
 import { placeInfoList, PlaceInfo } from '../data/placeInfoList'
 import { calculateDistance, Location } from '../utils'
@@ -14,10 +10,7 @@ const amountOfPlaces = 5
  */
 const maxDistance = 15
 
-export const locationHandler = (
-  message: LocationEventMessage,
-  replyToken: MessageEvent['replyToken']
-) => {
+export const locationHandler = (message: LocationEventMessage, replyToken: MessageEvent['replyToken']) => {
   const userLocation: Location = {
     latitude: message.latitude,
     longitude: message.longitude
@@ -47,13 +40,8 @@ export const locationHandler = (
       /**
        * if index greater than amountOfPlace, then compare comparedDistance(next placeInfo distance) to farthestDistanceOfResultPlaces
        */
-      const farthestDistanceOfResultPlaces =
-        resultPlaces[amountOfPlaces - 1].distance
-      const comparedDistance = calculateDistance(
-        userLocation,
-        targetLocation,
-        'K'
-      )
+      const farthestDistanceOfResultPlaces = resultPlaces[amountOfPlaces - 1].distance
+      const comparedDistance = calculateDistance(userLocation, targetLocation, 'K')
 
       if (comparedDistance < farthestDistanceOfResultPlaces) {
         resultPlaces.pop()

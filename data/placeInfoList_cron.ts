@@ -51,9 +51,7 @@ async function getPlaceData() {
     const updateTime = new Date(Date.now())
 
     const { data } = await axios.get(GYM_API_URL)
-    placeInfoList = data.filter(
-      (placeInfo: PlaceInfo) => placeInfo.OpenState !== 'N'
-    )
+    placeInfoList = data.filter((placeInfo: PlaceInfo) => placeInfo.OpenState !== 'N')
 
     console.log('place data update - ' + updateTime.toLocaleString())
   } catch (error) {

@@ -1,10 +1,7 @@
 import { MessageEvent } from '@line/bot-sdk'
 import { client } from '../linebot'
 
-export const replyText = (
-  replyToken: MessageEvent['replyToken'],
-  texts: string | string[]
-) => {
+export const replyText = (replyToken: MessageEvent['replyToken'], texts: string | string[]) => {
   texts = Array.isArray(texts) ? texts : [texts]
   return client.replyMessage(
     replyToken,
