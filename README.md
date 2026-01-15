@@ -34,4 +34,4 @@
 
 ## <a name="APIinfo"></a>API資訊
 
-- 此機器人使用 [全國運動場館資訊網 API](https://iplay.sa.gov.tw/WebAPI) 與 [氣象局 API](https://opendata.cwb.gov.tw/dataset/forecast/F-C0032-001)
+- 此機器人使用 [全國運動場館資訊網 API](https://iplay.sports.gov.tw/WebAPI) 與 [氣象局 API](https://opendata.cwb.gov.tw/dataset/forecast/F-C0032-001)
