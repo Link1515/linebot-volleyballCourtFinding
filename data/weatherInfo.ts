@@ -43,6 +43,8 @@ export interface WeatherApiData {
   records: Records
 }
 
+const WEATHER_API_BASE_URL = 'https://opendata.cwa.gov.tw/api/v1/rest/datastore/F-C0032-001'
+
 /**
  * Cities that cannot get weather info. It should be convert '市' to '縣'
  */
@@ -54,14 +56,11 @@ export const weatherInfo = async (city: string) => {
       city = city.replace(/市/, '縣')
     }
 
-    const { data }: { data: WeatherApiData } = await axios.get(
-      encodeURI(
-        'https://opendata.cwb.gov.tw/api/v1/rest/datastore/F-C0032-001?Authorization=' +
-          process.env.WEATHER_API_KEY +
-          '&locationName=' +
-          city
-      )
-    )
+    const apiUrl = new URL(WEATHER_API_BASE_URL)
+    apiUrl.searchParams.set('Authorization', process.env.WEATHER_API_KEY)
+    apiUrl.searchParams.set('locationName', city)
+
+    const { data }: { data: WeatherApiData } = await axios.get(apiUrl.toString())
 
     const weather = data.records.location[0].weatherElement
 
