@@ -1,16 +1,16 @@
 import type { MessageEvent, LocationEventMessage, FlexMessage } from '@line/bot-sdk'
 import { client } from '@projectRoot/linebot'
-import { placeInfoList, PlaceInfo } from '@data/placeInfoList'
+import rawPlaceInfoList from '@data/placeInfoList.json'
+import type { PlaceInfo, PlaceInfoWithDistance } from '@data/types'
 import { calculateDistance, Location, parseLatLng } from '@utils/index'
 import { createFlexPlaces } from '@template/index'
-
-type PlacesWithDistance = Required<PlaceInfo> & { distance: number }
 
 const amountOfPlaces = 5
 /**
  * max place distance send to user (in km)
  */
 const maxDistance = 15
+const placeInfoList = rawPlaceInfoList as PlaceInfo[]
 
 export const locationHandler = (message: LocationEventMessage, replyToken: MessageEvent['replyToken']) => {
   const userLocation: Location = {
@@ -20,7 +20,7 @@ export const locationHandler = (message: LocationEventMessage, replyToken: Messa
 
   const amount = Math.max(1, amountOfPlaces)
 
-  const placesWithDistance: PlacesWithDistance[] = []
+  const placesWithDistance: PlaceInfoWithDistance[] = []
   for (const placeInfo of placeInfoList) {
     const target = parseLatLng(placeInfo.LatLng)
     if (!target) continue

@@ -1,7 +1,7 @@
-import type { PlaceInfo } from '@data/placeInfoList'
+import type { PlaceInfoWithDistance } from '@data/types'
 import type { ContentsContent } from '@template/types'
 
-export const createPlacesBubbles = (placeInfoList: Required<PlaceInfo>[]) => {
+export const createPlacesBubbles = (placeInfoList: PlaceInfoWithDistance[]) => {
   const contentBubbles: ContentsContent[] = placeInfoList.map(placeInfo => ({
     type: 'bubble',
     size: 'micro',

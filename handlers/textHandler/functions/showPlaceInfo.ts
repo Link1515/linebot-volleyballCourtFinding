@@ -1,7 +1,10 @@
 import type { TextEventMessage, MessageEvent, LocationMessage } from '@line/bot-sdk'
 import { client } from '@projectRoot/linebot'
-import { placeInfoList } from '@data/placeInfoList'
+import type { PlaceInfo } from '@data/types'
+import rawPlaceInfoList from '@data/placeInfoList.json'
 import { getWeatherInfo } from '@api/getWeatherInfo'
+
+const placeInfoList = rawPlaceInfoList as PlaceInfo[]
 
 export const showPlaceInfo = async (replyToken: MessageEvent['replyToken'], message: TextEventMessage) => {
   const title = message.text.replace('go ', '')

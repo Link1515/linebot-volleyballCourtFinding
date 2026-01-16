@@ -1,26 +1,8 @@
 import axios from 'axios'
 import https from 'https'
-// import schedule from 'node-schedule'
-
-export interface PlaceInfo {
-  GymID: number
-  Name: string
-  OperationTel: string
-  Address: string
-  Rate: number
-  RateCount: number
-  Distance: number
-  GymFuncList: string
-  Photo1: string
-  LatLng: string
-  RentState: string
-  OpenState: string
-  Declaration: null | string
-  LandAttrName: string
-  distance?: number
-}
-
-export let placeInfoList: PlaceInfo[] = []
+import { writeFile } from 'fs/promises'
+import { resolve } from 'path'
+import type { PlaceInfo } from '@data/types'
 
 const GYM_API_URL = encodeURI(
   'https://iplay.sports.gov.tw/api/GymSearchAllList?$format=application/json;odata.metadata=none&Keyword=排球場'
@@ -48,11 +30,11 @@ axios.interceptors.response.use(
 
 async function getPlaceData() {
   try {
-    const updateTime = new Date(Date.now())
-
     const { data } = await axios.get(GYM_API_URL)
-    placeInfoList = data.filter((placeInfo: PlaceInfo) => placeInfo.OpenState !== 'N')
+    const placeInfoList = data.filter((placeInfo: PlaceInfo) => placeInfo.OpenState !== 'N')
+    await writeFile(resolve(__dirname, '../data/placeInfoList.json'), JSON.stringify(placeInfoList), 'utf-8')
 
+    const updateTime = new Date()
     console.log('place data update - ' + updateTime.toLocaleString())
   } catch (error) {
     console.log(error)
@@ -60,5 +42,3 @@ async function getPlaceData() {
 }
 
 getPlaceData()
-
-// schedule.scheduleJob({ dayOfWeek: 3, hour: 0 }, getPlaceData)

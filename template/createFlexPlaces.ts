@@ -1,8 +1,8 @@
 import type { FlexPlaces } from '@template/types'
-import type { PlaceInfo } from '@data/placeInfoList'
+import type { PlaceInfoWithDistance } from '@data/types'
 import { createPlacesBubbles } from '@template/createPlacesBubbles'
 
-export const createFlexPlaces = (placeInfoList: Required<PlaceInfo>[]) => {
+export const createFlexPlaces = (placeInfoList: PlaceInfoWithDistance[]) => {
   const flexPlaces: FlexPlaces = {
     type: 'flex',
     altText: '距離您最近的球場',
