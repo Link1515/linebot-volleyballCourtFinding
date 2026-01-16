@@ -64,12 +64,18 @@ export const weatherInfo = async (city: string) => {
 
     const weather = data.records.location[0].weatherElement
 
-    const precipitation = weather[1].time[0].parameter.parameterName
+    const precipitation = Number(weather[1].time[0].parameter.parameterName)
+    const mayRain = precipitation > 60
     const minTemperature = weather[2].time[0].parameter.parameterName
     const discription = weather[3].time[0].parameter.parameterName
     const maxTemperature = weather[4].time[0].parameter.parameterName
 
-    return `${city}今日${discription}，最高溫${maxTemperature}度，最低溫${minTemperature}度，${+precipitation > 60 ? '⚠️' : ''}降雨機率${precipitation}%${+precipitation > 60 ? '⚠️' : ''}`
+    return (
+      `${city}今日${discription}\n` +
+      `🌡️ 最高溫 ${maxTemperature} 度\n` +
+      `️🌡️ 最低溫 ${minTemperature} 度\n` +
+      `${mayRain ? '⚠️' : ''} 🌧️ 降雨機率 ${precipitation}% ${mayRain ? '⚠️' : ''}`
+    )
   } catch (error) {
     console.log(error)
   }
