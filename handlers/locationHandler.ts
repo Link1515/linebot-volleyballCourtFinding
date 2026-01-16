@@ -5,11 +5,9 @@ import type { PlaceInfo, PlaceInfoWithDistance } from '@data/types'
 import { calculateDistance, Location, parseLatLng } from '@utils/index'
 import { createFlexPlaces } from '@template/index'
 
-const amountOfPlaces = 5
-/**
- * max place distance send to user (in km)
- */
-const maxDistance = 15
+const AMOUNT_OF_PLACE = 5
+// in km
+const MAX_DISTANCE = 15
 const placeInfoList = rawPlaceInfoList as PlaceInfo[]
 
 export const locationHandler = (message: LocationEventMessage, replyToken: MessageEvent['replyToken']) => {
@@ -18,7 +16,7 @@ export const locationHandler = (message: LocationEventMessage, replyToken: Messa
     longitude: message.longitude
   }
 
-  const amount = Math.max(1, amountOfPlaces)
+  const amount = Math.max(1, AMOUNT_OF_PLACE)
 
   const placesWithDistance: PlaceInfoWithDistance[] = []
   for (const placeInfo of placeInfoList) {
@@ -26,7 +24,7 @@ export const locationHandler = (message: LocationEventMessage, replyToken: Messa
     if (!target) continue
 
     const distance = calculateDistance(userLocation, target, 'K')
-    if (distance > maxDistance) continue
+    if (distance > MAX_DISTANCE) continue
 
     placesWithDistance.push({
       ...placeInfo,
