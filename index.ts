@@ -8,8 +8,8 @@ const PORT = process.env.PORT || 3000
 
 app.use('/webhook', routeWebhook)
 
-app.use('*', (_, res) => {
-  res.status(404).send('not found')
+app.use((_, res) => {
+  res.status(404).send('Not Found')
 })
 
 app.listen(PORT, () => {
