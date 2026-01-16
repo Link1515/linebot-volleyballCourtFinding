@@ -3,7 +3,7 @@ import { client } from '@projectRoot/linebot'
 import rawPlaceInfoList from '@data/placeInfoList.json'
 import messages from '@data/messages.json'
 import type { PlaceInfo, PlaceInfoWithDistance } from '@data/types'
-import { calculateDistance, Location, parseLatLng } from '@utils/index'
+import { calculateDistance, LatLng, parseLatLng } from '@utils/index'
 import { createFlexPlaces } from '@template/index'
 
 const AMOUNT_OF_PLACE = 5
@@ -12,7 +12,7 @@ const MAX_DISTANCE = 15
 const placeInfoList = rawPlaceInfoList as PlaceInfo[]
 
 export const locationHandler = (message: LocationEventMessage, replyToken: MessageEvent['replyToken']) => {
-  const userLocation: Location = {
+  const userLocation: LatLng = {
     latitude: message.latitude,
     longitude: message.longitude
   }
@@ -24,7 +24,7 @@ export const locationHandler = (message: LocationEventMessage, replyToken: Messa
     const target = parseLatLng(placeInfo.LatLng)
     if (!target) continue
 
-    const distance = calculateDistance(userLocation, target, 'K')
+    const distance = calculateDistance(userLocation, target)
     if (distance > MAX_DISTANCE) continue
 
     placesWithDistance.push({

@@ -1,6 +1,6 @@
-import { Location } from '@utils/calculateDistance'
+import { LatLng } from '@utils/calculateDistance'
 
-export function parseLatLng(latLng: string): Location | null {
+export function parseLatLng(latLng: string): LatLng | null {
   const parts = latLng.split(',').map(s => s.trim())
   if (parts.length !== 2) return null
   const latitude = Number(parts[0])
