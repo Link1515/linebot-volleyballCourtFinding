@@ -1,7 +1,7 @@
 import type { TextEventMessage, MessageEvent, LocationMessage } from '@line/bot-sdk'
 import { client } from '@projectRoot/linebot'
 import { placeInfoList } from '@data/placeInfoList'
-import { weatherInfo } from '@data/weatherInfo'
+import { getWeatherInfo } from '@api/getWeatherInfo'
 
 export const showPlaceInfo = async (replyToken: MessageEvent['replyToken'], message: TextEventMessage) => {
   const title = message.text.replace('go ', '')
@@ -19,8 +19,7 @@ export const showPlaceInfo = async (replyToken: MessageEvent['replyToken'], mess
       latitude = +placeInfo.LatLng.split(',')[0]
       longitude = +placeInfo.LatLng.split(',')[1]
 
-      // get weather info
-      const weatherStr = (await weatherInfo(city)) as string
+      const weatherStr = (await getWeatherInfo(city)) as string
 
       // reply message
       return client.replyMessage(replyToken, [

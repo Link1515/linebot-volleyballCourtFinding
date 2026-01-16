@@ -10,6 +10,9 @@
             "@handlers/*": [
                 "handlers/*"
             ],
+            "@api/*": [
+                "api/*"
+            ],
             "@routes/*": [
                 "routes/*"
             ],
