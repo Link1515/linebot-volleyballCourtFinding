@@ -1,10 +1,10 @@
-import { WebhookEvent } from '@line/bot-sdk'
+import type { webhook } from '@line/bot-sdk'
 import { replyText } from '@utils/index'
 import { textHandler } from '@handlers/textHandler'
 import { locationHandler } from '@handlers/locationHandler'
 import messages from '@data/messages.json'
 
-export const eventHandler = (event: WebhookEvent) => {
+export const eventHandler = (event: webhook.Event) => {
   const { type: eventType } = event
   switch (eventType) {
     case 'message': {

@@ -1,5 +1,5 @@
 import express, { Request, Response } from 'express'
-import { middleware, WebhookEvent } from '@line/bot-sdk'
+import { middleware, webhook } from '@line/bot-sdk'
 import { middlewareConfig } from '@projectRoot/linebot'
 import { eventHandler } from '@handlers/eventHandler'
 
@@ -8,11 +8,11 @@ const router = express.Router()
 router.use(middleware(middlewareConfig))
 
 router.post('/', async (req: Request, res: Response): Promise<Response> => {
-  const events: WebhookEvent[] = req.body.events
+  const body = req.body as webhook.CallbackRequest
 
   // Process all of the received events asynchronously.
   const results = await Promise.all(
-    events.map(async (event: WebhookEvent) => {
+    body.events.map(async event => {
       try {
         eventHandler(event)
       } catch (err: unknown) {

@@ -1,4 +1,4 @@
-import type { MessageEvent, LocationEventMessage, FlexMessage } from '@line/bot-sdk'
+import type { webhook } from '@line/bot-sdk'
 import { client } from '@projectRoot/linebot'
 import rawPlaceInfoList from '@data/placeInfoList.json'
 import messages from '@data/messages.json'
@@ -11,7 +11,7 @@ const AMOUNT_OF_PLACE = 5
 const MAX_DISTANCE = 15
 const placeInfoList = rawPlaceInfoList as PlaceInfo[]
 
-export const locationHandler = (message: LocationEventMessage, replyToken: MessageEvent['replyToken']) => {
+export const locationHandler = (message: webhook.LocationMessageContent, replyToken: string) => {
   const userLocation: LatLng = {
     latitude: message.latitude,
     longitude: message.longitude
@@ -37,19 +37,27 @@ export const locationHandler = (message: LocationEventMessage, replyToken: Messa
   const resultPlaces = placesWithDistance.slice(0, amount)
 
   if (resultPlaces.length === 0) {
-    return client.replyMessage(replyToken, {
-      type: 'text',
-      text: messages.noCourtAround
+    return client.replyMessage({
+      replyToken,
+      messages: [
+        {
+          type: 'text',
+          text: messages.noCourtAround
+        }
+      ]
     })
   }
 
   const flexPlaces = createFlexPlaces(resultPlaces)
 
-  return client.replyMessage(replyToken, [
-    flexPlaces as FlexMessage,
-    {
-      type: 'text',
-      text: messages.selectCourt
-    }
-  ])
+  return client.replyMessage({
+    replyToken,
+    messages: [
+      flexPlaces,
+      {
+        type: 'text',
+        text: messages.selectCourt
+      }
+    ]
+  })
 }

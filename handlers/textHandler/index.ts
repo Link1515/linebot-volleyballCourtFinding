@@ -1,7 +1,7 @@
-import { MessageEvent, TextEventMessage, EventSource } from '@line/bot-sdk'
+import type { webhook } from '@line/bot-sdk'
 import { showPlaceInfo, locationQuickReply, tutorialMsg, errorMsg } from '@handlers/textHandler/functions'
 
-export const textHandler = (message: TextEventMessage, replyToken: MessageEvent['replyToken'], source: EventSource) => {
+export const textHandler = (message: webhook.TextMessageContent, replyToken: string, source: webhook.Source) => {
   switch (message.text) {
     // message start with "go "
     case message.text.match(/^go\s/)?.input:

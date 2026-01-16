@@ -1,4 +1,4 @@
-import type { TextEventMessage, MessageEvent, LocationMessage } from '@line/bot-sdk'
+import type { webhook } from '@line/bot-sdk'
 import { client } from '@projectRoot/linebot'
 import type { PlaceInfo } from '@data/types'
 import rawPlaceInfoList from '@data/placeInfoList.json'
@@ -6,7 +6,7 @@ import { getWeatherInfo } from '@api/getWeatherInfo'
 
 const placeInfoList = rawPlaceInfoList as PlaceInfo[]
 
-export const showPlaceInfo = async (replyToken: MessageEvent['replyToken'], message: TextEventMessage) => {
+export const showPlaceInfo = async (replyToken: string, message: webhook.TextMessageContent) => {
   const title = message.text.replace('go ', '')
 
   // query place info
@@ -25,19 +25,22 @@ export const showPlaceInfo = async (replyToken: MessageEvent['replyToken'], mess
       const weatherStr = (await getWeatherInfo(city)) as string
 
       // reply message
-      return client.replyMessage(replyToken, [
-        {
-          type: 'location',
-          title,
-          address,
-          latitude,
-          longitude
-        } as LocationMessage,
-        {
-          type: 'text',
-          text: weatherStr
-        }
-      ])
+      return client.replyMessage({
+        replyToken,
+        messages: [
+          {
+            type: 'location',
+            title,
+            address,
+            latitude,
+            longitude
+          },
+          {
+            type: 'text',
+            text: weatherStr
+          }
+        ]
+      })
     }
   }
 }

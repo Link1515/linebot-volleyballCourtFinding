@@ -1,10 +1,10 @@
-import type { FlexPlaces } from '@template/types'
+import type { messagingApi } from '@line/bot-sdk'
 import type { PlaceInfoWithDistance } from '@data/types'
 import { createPlacesBubbles } from '@template/createPlacesBubbles'
 import messages from '@data/messages.json'
 
 export const createFlexPlaces = (placeInfoList: PlaceInfoWithDistance[]) => {
-  const flexPlaces: FlexPlaces = {
+  const flexPlaces: messagingApi.FlexMessage = {
     type: 'flex',
     altText: messages.courtAround,
     contents: {

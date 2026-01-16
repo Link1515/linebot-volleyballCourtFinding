@@ -1,14 +1,9 @@
-import { ClientConfig, Client, MiddlewareConfig } from '@line/bot-sdk'
+import { MiddlewareConfig, messagingApi } from '@line/bot-sdk'
 
-// line bot config
-const clientConfig: ClientConfig = {
-  channelAccessToken: process.env.CHANNEL_ACCESS_TOKEN || '',
+export const middlewareConfig: MiddlewareConfig = {
   channelSecret: process.env.CHANNEL_SECRET
 }
-export const middlewareConfig: MiddlewareConfig = {
-  channelAccessToken: process.env.CHANNEL_ACCESS_TOKEN,
-  channelSecret: process.env.CHANNEL_SECRET || ''
-}
 
-// Create a new LINE SDK client.
-export const client = new Client(clientConfig)
+export const client = new messagingApi.MessagingApiClient({
+  channelAccessToken: process.env.CHANNEL_ACCESS_TOKEN
+})

@@ -1,9 +1,9 @@
+import type { messagingApi } from '@line/bot-sdk'
 import type { PlaceInfoWithDistance } from '@data/types'
-import type { ContentsContent } from '@template/types'
 import messages from '@data/messages.json'
 
 export const createPlacesBubbles = (placeInfoList: PlaceInfoWithDistance[]) => {
-  const contentBubbles: ContentsContent[] = placeInfoList.map(placeInfo => ({
+  const contentBubbles: messagingApi.FlexBubble[] = placeInfoList.map(placeInfo => ({
     type: 'bubble',
     size: 'micro',
     hero: {
