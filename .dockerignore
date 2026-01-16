@@ -1,0 +1,7 @@
+node_modules
+images
+.git
+Dockerfile
+docker-compose.yml
+data/*.json
+!data/messages.json

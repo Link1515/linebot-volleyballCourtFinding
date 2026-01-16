@@ -1,0 +1,7 @@
+services:
+  linebot:
+    build: .
+    ports:
+      - '3012:3000'
+    env_file:
+      - .env
