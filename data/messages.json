@@ -8,6 +8,7 @@
   "selectCourt": "請點選您想去的球場",
   "distance": "距離: 約 {distance} 公里",
   "tryAgain": "請再操作一次",
+  "notFound": "找不到這個地點",
   "weatherInfo": "{city}今日{description}\n🌡️ 最高溫 {maxTemperature} 度\n️🌡️ 最低溫 {minTemperature} 度\n🌧️ 降雨機率 {precipitation}%",
   "tutorial": "歡迎使用 超級排🏐球場\n\n🔺點擊選單的 \"球場資訊\" 後，再點擊出現的 \"傳送位置\" 按鈕傳送自己所在的位置，機器人將會快速幫您找到附近最近的 5 個排球場!\n\n接著點擊想去的排球場，機器人就會傳送給您該球場的地圖，並根據球場所在的城市，提供天氣資訊!\n\nGitHub:\nhttps://github.com/Link1515/linebot-volleyballCourtFinding\n\n如果發現問題，歡迎透過 GitHub 聯繫我!"
 }

@@ -2,7 +2,9 @@ import type { webhook } from '@line/bot-sdk'
 import { client } from '@projectRoot/linebot'
 import type { PlaceInfo } from '@data/types'
 import rawPlaceInfoList from '@data/placeInfoList.json'
+import messages from '@data/messages.json'
 import { getWeatherInfo } from '@api/getWeatherInfo'
+import { replyText } from '@projectRoot/utils'
 
 const placeInfoList = rawPlaceInfoList as PlaceInfo[]
 
@@ -24,7 +26,6 @@ export const showPlaceInfo = async (replyToken: string, message: webhook.TextMes
 
       const weatherStr = (await getWeatherInfo(city)) as string
 
-      // reply message
       return client.replyMessage({
         replyToken,
         messages: [
@@ -43,4 +44,6 @@ export const showPlaceInfo = async (replyToken: string, message: webhook.TextMes
       })
     }
   }
+
+  return replyText(replyToken, messages.notFound)
 }
