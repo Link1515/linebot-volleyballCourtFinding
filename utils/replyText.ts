@@ -1,5 +1,5 @@
 import { MessageEvent } from '@line/bot-sdk'
-import { client } from '../linebot'
+import { client } from '@projectRoot/linebot'
 
 export const replyText = (replyToken: MessageEvent['replyToken'], texts: string | string[]) => {
   texts = Array.isArray(texts) ? texts : [texts]
