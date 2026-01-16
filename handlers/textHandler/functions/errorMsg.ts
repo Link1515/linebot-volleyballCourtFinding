@@ -1,8 +1,7 @@
 import { MessageEvent } from '@line/bot-sdk'
 import { replyText } from '@utils/index'
-
-const errorStr = '請再操作一次'
+import messages from '@data/messages.json'
 
 export const errorMsg = (replyToken: MessageEvent['replyToken']) => {
-  replyText(replyToken, errorStr)
+  replyText(replyToken, messages.tryAgain)
 }

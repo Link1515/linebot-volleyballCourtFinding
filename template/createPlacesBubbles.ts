@@ -1,5 +1,6 @@
 import type { PlaceInfoWithDistance } from '@data/types'
 import type { ContentsContent } from '@template/types'
+import messages from '@data/messages.json'
 
 export const createPlacesBubbles = (placeInfoList: PlaceInfoWithDistance[]) => {
   const contentBubbles: ContentsContent[] = placeInfoList.map(placeInfo => ({
@@ -26,7 +27,10 @@ export const createPlacesBubbles = (placeInfoList: PlaceInfoWithDistance[]) => {
         },
         {
           type: 'text',
-          text: `距離: 約${Math.round((placeInfo.distance + Number.EPSILON) * 100) / 100}公里`,
+          text: messages.distance.replace(
+            '{distance}',
+            (Math.round((placeInfo.distance + Number.EPSILON) * 100) / 100).toString()
+          ),
           size: '12px',
           align: 'center',
           weight: 'bold'

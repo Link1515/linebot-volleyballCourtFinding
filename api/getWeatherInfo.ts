@@ -1,4 +1,5 @@
 import axios from 'axios'
+import messages from '@data/messages.json'
 
 export interface Parameter {
   parameterName: string
@@ -64,18 +65,17 @@ export const getWeatherInfo = async (city: string) => {
 
     const weather = data.records.location[0].weatherElement
 
-    const precipitation = Number(weather[1].time[0].parameter.parameterName)
-    const mayRain = precipitation > 60
+    const precipitation = weather[1].time[0].parameter.parameterName
     const minTemperature = weather[2].time[0].parameter.parameterName
-    const discription = weather[3].time[0].parameter.parameterName
+    const description = weather[3].time[0].parameter.parameterName
     const maxTemperature = weather[4].time[0].parameter.parameterName
 
-    return (
-      `${city}今日${discription}\n` +
-      `🌡️ 最高溫 ${maxTemperature} 度\n` +
-      `️🌡️ 最低溫 ${minTemperature} 度\n` +
-      `${mayRain ? '⚠️' : ''} 🌧️ 降雨機率 ${precipitation}% ${mayRain ? '⚠️' : ''}`
-    )
+    return messages.weatherInfo
+      .replace('{city}', city)
+      .replace('{description}', description)
+      .replace('{minTemperature}', minTemperature)
+      .replace('{maxTemperature}', maxTemperature)
+      .replace('{precipitation}', precipitation)
   } catch (error) {
     console.log(error)
   }

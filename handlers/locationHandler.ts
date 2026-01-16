@@ -1,6 +1,7 @@
 import type { MessageEvent, LocationEventMessage, FlexMessage } from '@line/bot-sdk'
 import { client } from '@projectRoot/linebot'
 import rawPlaceInfoList from '@data/placeInfoList.json'
+import messages from '@data/messages.json'
 import type { PlaceInfo, PlaceInfoWithDistance } from '@data/types'
 import { calculateDistance, Location, parseLatLng } from '@utils/index'
 import { createFlexPlaces } from '@template/index'
@@ -38,7 +39,7 @@ export const locationHandler = (message: LocationEventMessage, replyToken: Messa
   if (resultPlaces.length === 0) {
     return client.replyMessage(replyToken, {
       type: 'text',
-      text: '附近沒有球場'
+      text: messages.noCourtAround
     })
   }
 
@@ -48,7 +49,7 @@ export const locationHandler = (message: LocationEventMessage, replyToken: Messa
     flexPlaces as FlexMessage,
     {
       type: 'text',
-      text: '請點選您想去的球場'
+      text: messages.selectCourt
     }
   ])
 }
