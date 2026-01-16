@@ -10,6 +10,11 @@ router.use(middleware(middlewareConfig))
 router.post('/', async (req: Request, res: Response) => {
   const body = req.body as webhook.CallbackRequest
 
+  if (!body?.events || !Array.isArray(body.events)) {
+    res.status(400).json({ status: 'invalid_request' })
+    return
+  }
+
   res.status(200).json({ status: 'success' })
 
   void Promise.allSettled(
