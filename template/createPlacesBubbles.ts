@@ -61,9 +61,9 @@ export const createPlacesBubbles = (placeInfoList: PlaceInfoWithDistance[]) => {
       paddingAll: '13px'
     },
     action: {
-      type: 'message',
-      label: 'action',
-      text: `go ${placeInfo.Name}`
+      type: 'postback',
+      data: `action=showPlace&id=${placeInfo.GymID}`,
+      displayText: messages.userSelection.replace('{name}', placeInfo.Name)
     }
   }))
 

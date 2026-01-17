@@ -6,6 +6,7 @@
   "courtAround": "距離您最近的球場",
   "noCourtAround": "附近沒有球場",
   "selectCourt": "請點選您想去的球場",
+  "userSelection": "前往 {name}",
   "distance": "距離: 約 {distance} 公里",
   "tryAgain": "請再操作一次",
   "notFound": "找不到這個地點",

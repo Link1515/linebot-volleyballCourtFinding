@@ -1,4 +1,3 @@
-import type { webhook } from '@line/bot-sdk'
 import { client } from '@projectRoot/linebot'
 import type { PlaceInfo } from '@data/types'
 import rawPlaceInfoList from '@data/placeInfoList.json'
@@ -8,15 +7,11 @@ import { parseLatLng, replyText } from '@projectRoot/utils'
 
 const placeInfoList = rawPlaceInfoList as PlaceInfo[]
 
-export const showPlaceInfo = async (replyToken: string, message: webhook.TextMessageContent) => {
-  const title = message.text.replace('go ', '')
-
+export const showPlaceInfo = async (id: number, replyToken: string) => {
   for (const placeInfo of placeInfoList) {
-    if (placeInfo.Name === title) {
-      const address = placeInfo.Address
+    if (placeInfo.GymID === id) {
       const city = placeInfo.Address.slice(0, 3)
       const { latitude, longitude } = parseLatLng(placeInfo.LatLng)
-
       const weatherStr = (await getWeatherInfo(city)) as string
 
       return client.replyMessage({
@@ -24,8 +19,8 @@ export const showPlaceInfo = async (replyToken: string, message: webhook.TextMes
         messages: [
           {
             type: 'location',
-            title,
-            address,
+            title: placeInfo.Name,
+            address: placeInfo.Address,
             latitude,
             longitude
           },

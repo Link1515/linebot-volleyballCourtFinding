@@ -2,6 +2,7 @@ import type { webhook } from '@line/bot-sdk'
 import { replyText } from '@utils/index'
 import { textHandler } from '@handlers/textHandler'
 import { locationHandler } from '@handlers/locationHandler'
+import { postbackHanlder } from '@handlers/postbackHanlder'
 import messages from '@data/messages.json'
 
 export const eventHandler = (event: webhook.Event) => {
@@ -16,6 +17,10 @@ export const eventHandler = (event: webhook.Event) => {
           return locationHandler(message, event.replyToken)
       }
       break
+
+    case 'postback':
+      const { postback } = event
+      return postbackHanlder(postback, event.replyToken)
 
     case 'follow':
       return replyText(event.replyToken, messages.follow)
