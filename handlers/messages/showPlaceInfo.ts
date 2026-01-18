@@ -11,7 +11,8 @@ export const showPlaceInfo = async (id: number): Promise<messagingApi.Message[]>
   for (const placeInfo of placeInfoList) {
     if (placeInfo.GymID === id) {
       const city = placeInfo.Address.slice(0, 3)
-      const { latitude, longitude } = parseLatLng(placeInfo.LatLng)
+      const latLan = parseLatLng(placeInfo.LatLng)
+      if (!latLan) return [{ type: 'text', text: messages.notFound }]
       const weatherStr = (await getWeatherInfo(city)) as string
 
       return [
@@ -19,8 +20,8 @@ export const showPlaceInfo = async (id: number): Promise<messagingApi.Message[]>
           type: 'location',
           title: placeInfo.Name,
           address: placeInfo.Address,
-          latitude,
-          longitude
+          latitude: latLan.latitude,
+          longitude: latLan.longitude
         },
         {
           type: 'text',
