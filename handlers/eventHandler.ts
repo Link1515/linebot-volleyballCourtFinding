@@ -6,7 +6,7 @@ import { postbackHanlder } from '@handlers/postbackHanlder'
 import { msgFollow } from '@handlers/messages'
 import { msgJoin } from './messages/msgJoin'
 
-type ReplyableEvent = Extract<webhook.Event, { replyToken?: unknown }> & { replyToken?: string }
+type ReplyableEvent = Extract<webhook.Event, { replyToken?: unknown }> & { replyToken: string }
 
 export const eventHandler = async (event: webhook.Event) => {
   let replyMessages: messagingApi.Message[]
