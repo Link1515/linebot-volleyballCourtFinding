@@ -1,5 +1,5 @@
 import { webhook } from '@line/bot-sdk'
-import { showPlaceInfo } from '@handlers/postback'
+import { showPlaceInfo } from '@handlers/messages'
 
 interface PostbackData {
   action: string

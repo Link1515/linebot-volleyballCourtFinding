@@ -1,6 +1,6 @@
 import type { webhook } from '@line/bot-sdk'
 import { replyText } from '@utils/index'
-import { textHandler } from '@handlers/textHandler'
+import { textHandler } from '@projectRoot/handlers/textHandler'
 import { locationHandler } from '@handlers/locationHandler'
 import { postbackHanlder } from '@handlers/postbackHanlder'
 import messages from '@data/messages.json'
@@ -12,7 +12,7 @@ export const eventHandler = (event: webhook.Event) => {
       const { message } = event
       switch (message.type) {
         case 'text':
-          return textHandler(message, event.replyToken, event.source)
+          return textHandler(message, event.replyToken)
         case 'location':
           return locationHandler(message, event.replyToken)
       }
