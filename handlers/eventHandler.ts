@@ -14,20 +14,18 @@ export const eventHandler = async (event: webhook.Event) => {
   const { type: eventType } = event
   switch (eventType) {
     case 'message':
-      const { message } = event
-      switch (message.type) {
+      switch (event.message.type) {
         case 'text':
-          replyMessages = textHandler(message)
+          replyMessages = textHandler(event.message)
           break
         case 'location':
-          replyMessages = locationHandler(message)
+          replyMessages = locationHandler(event.message)
           break
       }
       break
 
     case 'postback':
-      const { postback } = event
-      replyMessages = await postbackHanlder(postback)
+      replyMessages = await postbackHanlder(event.postback)
       break
 
     case 'follow':
