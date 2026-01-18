@@ -6,7 +6,7 @@ interface PostbackData {
   [key: string]: string
 }
 
-export const postbackHanlder = (postback: webhook.PostbackContent) => {
+export function postbackHanlder(postback: webhook.PostbackContent) {
   const postbackData = Object.fromEntries(new URLSearchParams(postback.data)) as PostbackData
 
   switch (postbackData.action) {

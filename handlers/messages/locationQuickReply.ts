@@ -1,7 +1,7 @@
 import type { messagingApi } from '@line/bot-sdk'
 import messages from '@data/messages.json'
 
-export const locationQuickReply = (): messagingApi.Message[] => {
+export function locationQuickReply(): messagingApi.Message[] {
   return [
     {
       type: 'text',

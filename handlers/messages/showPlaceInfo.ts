@@ -7,7 +7,7 @@ import { parseLatLng } from '@projectRoot/utils'
 
 const placeInfoList = rawPlaceInfoList as PlaceInfo[]
 
-export const showPlaceInfo = async (id: number): Promise<messagingApi.Message[]> => {
+export async function showPlaceInfo(id: number): Promise<messagingApi.Message[]> {
   for (const placeInfo of placeInfoList) {
     if (placeInfo.GymID === id) {
       const city = placeInfo.Address.slice(0, 3)

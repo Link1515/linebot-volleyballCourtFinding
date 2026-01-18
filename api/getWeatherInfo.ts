@@ -51,7 +51,7 @@ const WEATHER_API_BASE_URL = 'https://opendata.cwa.gov.tw/api/v1/rest/datastore/
  */
 const cityConvertList = ['彰化市', '花蓮市']
 
-export const getWeatherInfo = async (city: string) => {
+export async function getWeatherInfo(city: string) {
   try {
     if (cityConvertList.includes(city)) {
       city = city.replace(/市/, '縣')

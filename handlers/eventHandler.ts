@@ -8,7 +8,7 @@ import { msgJoin } from './messages/msgJoin'
 
 type ReplyableEvent = Extract<webhook.Event, { replyToken?: unknown }> & { replyToken: string }
 
-export const eventHandler = async (event: webhook.Event) => {
+export async function eventHandler(event: webhook.Event) {
   let replyMessages: messagingApi.Message[]
 
   const { type: eventType } = event

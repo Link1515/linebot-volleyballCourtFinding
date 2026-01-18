@@ -12,7 +12,7 @@ const EARTH_RADIUS = {
   nm: 3440.0695
 }
 
-export const calculateDistance = (a: LatLng, b: LatLng, unit: Unit = 'km') => {
+export function calculateDistance(a: LatLng, b: LatLng, unit: Unit = 'km') {
   const lat1 = toRad(a.latitude)
   const lat2 = toRad(b.latitude)
   const dLat = lat2 - lat1
