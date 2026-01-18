@@ -1,13 +1,13 @@
 import type { webhook } from '@line/bot-sdk'
-import { locationQuickReply, tutorialMsg, errorMsg } from '@handlers/messages'
+import { locationQuickReply, msgTutorial, msgTryAgain } from '@handlers/messages'
 
-export const textHandler = (message: webhook.TextMessageContent, replyToken: string) => {
+export const textHandler = (message: webhook.TextMessageContent) => {
   switch (message.text) {
     case '球場資訊':
-      return locationQuickReply(replyToken)
+      return locationQuickReply()
     case '使用教學':
-      return tutorialMsg(replyToken)
+      return msgTutorial()
     default:
-      return errorMsg(replyToken)
+      return msgTryAgain()
   }
 }

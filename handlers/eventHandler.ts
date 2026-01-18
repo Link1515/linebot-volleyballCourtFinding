@@ -1,31 +1,52 @@
-import type { webhook } from '@line/bot-sdk'
-import { replyText } from '@utils/index'
+import type { webhook, messagingApi } from '@line/bot-sdk'
+import { client } from '@projectRoot/linebot'
 import { textHandler } from '@projectRoot/handlers/textHandler'
 import { locationHandler } from '@handlers/locationHandler'
 import { postbackHanlder } from '@handlers/postbackHanlder'
-import messages from '@data/messages.json'
+import { msgFollow } from '@handlers/messages'
+import { msgJoin } from './messages/msgJoin'
 
-export const eventHandler = (event: webhook.Event) => {
+type ReplyableEvent = Extract<webhook.Event, { replyToken?: unknown }> & { replyToken?: string }
+
+export const eventHandler = async (event: webhook.Event) => {
+  let replyMessages: messagingApi.Message[]
+
   const { type: eventType } = event
   switch (eventType) {
     case 'message':
       const { message } = event
       switch (message.type) {
         case 'text':
-          return textHandler(message, event.replyToken)
+          replyMessages = textHandler(message)
+          break
         case 'location':
-          return locationHandler(message, event.replyToken)
+          replyMessages = locationHandler(message)
+          break
       }
       break
 
     case 'postback':
       const { postback } = event
-      return postbackHanlder(postback, event.replyToken)
+      replyMessages = await postbackHanlder(postback)
+      break
 
     case 'follow':
-      return replyText(event.replyToken, messages.follow)
+      replyMessages = msgFollow()
+      break
 
     case 'join':
-      return replyText(event.replyToken, messages.join)
+      replyMessages = msgJoin()
+      break
   }
+
+  if (replyMessages && isReplyableEvent(event)) {
+    return client.replyMessage({
+      replyToken: event.replyToken,
+      messages: replyMessages
+    })
+  }
+}
+
+function isReplyableEvent(event: webhook.Event): event is ReplyableEvent {
+  return 'replyToken' in event && typeof (event as any).replyToken === 'string'
 }

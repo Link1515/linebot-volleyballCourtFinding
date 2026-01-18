@@ -6,13 +6,13 @@ interface PostbackData {
   [key: string]: string
 }
 
-export const postbackHanlder = (postback: webhook.PostbackContent, replyToken: string) => {
+export const postbackHanlder = (postback: webhook.PostbackContent) => {
   const postbackData = Object.fromEntries(new URLSearchParams(postback.data)) as PostbackData
 
   switch (postbackData.action) {
     case 'showPlace':
       const id = parseInt(postbackData.id)
       if (isNaN(id)) return
-      return showPlaceInfo(id, replyToken)
+      return showPlaceInfo(id)
   }
 }
