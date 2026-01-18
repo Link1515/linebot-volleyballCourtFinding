@@ -77,6 +77,6 @@ export const getWeatherInfo = async (city: string) => {
       .replace('{maxTemperature}', maxTemperature)
       .replace('{precipitation}', precipitation)
   } catch (error) {
-    console.log(error)
+    return messages.weatherServiceError
   }
 }
