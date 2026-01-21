@@ -37,12 +37,12 @@ export async function eventHandler(event: webhook.Event) {
       break
   }
 
-  if (replyMessages && isReplyableEvent(event)) {
-    return client.replyMessage({
-      replyToken: event.replyToken,
-      messages: replyMessages
-    })
-  }
+  if (!replyMessages || replyMessages.length === 0 || !isReplyableEvent(event)) return
+
+  client.replyMessage({
+    replyToken: event.replyToken,
+    messages: replyMessages
+  })
 }
 
 function isReplyableEvent(event: webhook.Event): event is ReplyableEvent {

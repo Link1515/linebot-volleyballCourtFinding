@@ -1,5 +1,5 @@
 import type { webhook } from '@line/bot-sdk'
-import { locationQuickReply, msgTutorial, msgTryAgain } from '@handlers/messages'
+import { locationQuickReply, msgTutorial } from '@handlers/messages'
 
 export function textHandler(message: webhook.TextMessageContent) {
   switch (message.text) {
@@ -8,6 +8,6 @@ export function textHandler(message: webhook.TextMessageContent) {
     case '使用教學':
       return msgTutorial()
     default:
-      return msgTryAgain()
+      return []
   }
 }

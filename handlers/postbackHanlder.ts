@@ -12,7 +12,7 @@ export function postbackHanlder(postback: webhook.PostbackContent) {
   switch (postbackData.action) {
     case 'showPlace':
       const id = parseInt(postbackData.id)
-      if (isNaN(id)) return
+      if (isNaN(id)) return []
       return showPlaceInfo(id)
   }
 }
