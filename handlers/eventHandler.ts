@@ -3,8 +3,7 @@ import { client } from '@projectRoot/linebot'
 import { textHandler } from '@projectRoot/handlers/textHandler'
 import { locationHandler } from '@handlers/locationHandler'
 import { postbackHanlder } from '@handlers/postbackHanlder'
-import { msgFollow } from '@handlers/messages'
-import { msgJoin } from './messages/msgJoin'
+import { msgFollow, msgJoin } from '@handlers/messages'
 
 type ReplyableEvent = Extract<webhook.Event, { replyToken?: unknown }> & { replyToken: string }
 

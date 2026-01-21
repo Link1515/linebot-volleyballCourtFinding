@@ -1,6 +1,7 @@
 export * from './msgTryAgain'
 export * from './msgTutorial'
 export * from './msgFollow'
+export * from './msgJoin'
 export * from './locationQuickReply'
 export * from './showPlaceInfo'
 export * from './showPlaceCarousel'
