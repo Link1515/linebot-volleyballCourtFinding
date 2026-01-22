@@ -5,7 +5,7 @@ WORKDIR /app
 COPY bun.lock package.json ./
 RUN bun install --frozen-lockfile --production
 
-FROM deps AS fetchCourts
+FROM deps AS data
 
 WORKDIR /app
 
@@ -22,7 +22,7 @@ WORKDIR /app
 
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
-COPY --from=fetchCourts /app/data/courts.json ./data/courts.json
+COPY --from=data /app/data/courts.json ./data/courts.json
 
 EXPOSE 3000
 
