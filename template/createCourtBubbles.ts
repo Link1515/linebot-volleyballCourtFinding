@@ -1,14 +1,14 @@
 import type { messagingApi } from '@line/bot-sdk'
-import type { PlaceInfoWithDistance } from '@data/types'
+import type { CourtWithDistance } from '@data/types'
 import messages from '@data/messages.json'
 
-export function createPlacesBubbles(placeInfoList: PlaceInfoWithDistance[]) {
-  const contentBubbles: messagingApi.FlexBubble[] = placeInfoList.map(placeInfo => ({
+export function createCourtBubbles(courts: CourtWithDistance[]) {
+  const courtBubbles: messagingApi.FlexBubble[] = courts.map(court => ({
     type: 'bubble',
     size: 'micro',
     hero: {
       type: 'image',
-      url: encodeURI(placeInfo.Photo1),
+      url: encodeURI(court.Photo1),
       size: 'full',
       aspectMode: 'cover',
       aspectRatio: '320:213'
@@ -19,7 +19,7 @@ export function createPlacesBubbles(placeInfoList: PlaceInfoWithDistance[]) {
       contents: [
         {
           type: 'text',
-          text: placeInfo.Name,
+          text: court.Name,
           weight: 'bold',
           size: 'sm',
           align: 'center',
@@ -29,7 +29,7 @@ export function createPlacesBubbles(placeInfoList: PlaceInfoWithDistance[]) {
           type: 'text',
           text: messages.distance.replace(
             '{distance}',
-            (Math.round((placeInfo.distance + Number.EPSILON) * 100) / 100).toString()
+            (Math.round((court.distance + Number.EPSILON) * 100) / 100).toString()
           ),
           size: '12px',
           align: 'center',
@@ -50,7 +50,7 @@ export function createPlacesBubbles(placeInfoList: PlaceInfoWithDistance[]) {
                   color: '#8c8c8c',
                   size: 'xs',
                   flex: 5,
-                  text: '📍' + placeInfo.Address
+                  text: '📍' + court.Address
                 }
               ]
             }
@@ -62,10 +62,10 @@ export function createPlacesBubbles(placeInfoList: PlaceInfoWithDistance[]) {
     },
     action: {
       type: 'postback',
-      data: `action=showPlace&id=${placeInfo.GymID}`,
-      displayText: messages.userSelection.replace('{name}', placeInfo.Name)
+      data: `action=showCourt&id=${court.GymID}`,
+      displayText: messages.userSelection.replace('{name}', court.Name)
     }
   }))
 
-  return contentBubbles
+  return courtBubbles
 }

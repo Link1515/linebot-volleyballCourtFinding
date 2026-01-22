@@ -2,7 +2,7 @@ type OpenState = 'E' | 'H' | 'N' | 'O' | 'W'
 
 type RentState = '不開放對外場地租借' | '付費對外場地租借' | '免費對外場地租借'
 
-export interface PlaceInfo {
+export interface Court {
   GymID: number
   Name: string
   OperationTel: string
@@ -19,4 +19,4 @@ export interface PlaceInfo {
   LandAttrName: string
 }
 
-export type PlaceInfoWithDistance = PlaceInfo & { distance: number }
+export type CourtWithDistance = Court & { distance: number }

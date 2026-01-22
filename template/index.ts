@@ -1,2 +1,2 @@
-export * from './createFlexPlaces'
-export * from './createPlacesBubbles'
+export * from './createCourtFlex'
+export * from './createCourtBubbles'

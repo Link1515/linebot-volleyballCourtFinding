@@ -1,6 +1,6 @@
 import type { webhook } from '@line/bot-sdk'
-import { showPlaceCarousel } from '@handlers/messages'
+import { showCourtCarousel } from '@handlers/messages'
 
 export function locationHandler(message: webhook.LocationMessageContent) {
-  return showPlaceCarousel(message)
+  return showCourtCarousel(message)
 }

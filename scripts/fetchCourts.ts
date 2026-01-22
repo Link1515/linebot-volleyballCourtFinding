@@ -2,7 +2,7 @@ import axios from 'axios'
 import https from 'https'
 import { writeFile } from 'fs/promises'
 import { resolve } from 'path'
-import type { PlaceInfo } from '@data/types'
+import type { Court } from '@data/types'
 
 const GYM_API_URL = encodeURI(
   'https://iplay.sports.gov.tw/api/GymSearchAllList?$format=application/json;odata.metadata=none&Keyword=排球場'
@@ -28,17 +28,17 @@ axios.interceptors.response.use(
   }
 )
 
-async function getPlaceData() {
+async function fetchCourts() {
   try {
     const { data } = await axios.get(GYM_API_URL)
-    const placeInfoList = data.filter((placeInfo: PlaceInfo) => placeInfo.OpenState !== 'N')
-    await writeFile(resolve(__dirname, '../data/placeInfoList.json'), JSON.stringify(placeInfoList), 'utf-8')
+    const courts = data.filter((court: Court) => court.OpenState !== 'N')
+    await writeFile(resolve(__dirname, '../data/courts.json'), JSON.stringify(courts), 'utf-8')
 
     const updateTime = new Date()
-    console.log('place data update - ' + updateTime.toLocaleString())
+    console.log('courts update - ' + updateTime.toLocaleString())
   } catch (error) {
     console.log(error)
   }
 }
 
-getPlaceData()
+fetchCourts()

@@ -1,25 +1,25 @@
 import { messagingApi } from '@line/bot-sdk'
-import type { PlaceInfo } from '@data/types'
-import rawPlaceInfoList from '@data/placeInfoList.json'
+import type { Court } from '@data/types'
+import rawCourts from '@data/courts.json'
 import messages from '@data/messages.json'
 import { getWeatherInfo } from '@api/getWeatherInfo'
 import { parseLatLng } from '@projectRoot/utils'
 
-const placeInfoList = rawPlaceInfoList as PlaceInfo[]
+const courts = rawCourts as Court[]
 
-export async function showPlaceInfo(id: number): Promise<messagingApi.Message[]> {
-  for (const placeInfo of placeInfoList) {
-    if (placeInfo.GymID === id) {
-      const city = placeInfo.Address.slice(0, 3)
-      const latLan = parseLatLng(placeInfo.LatLng)
+export async function showCourt(id: number): Promise<messagingApi.Message[]> {
+  for (const court of courts) {
+    if (court.GymID === id) {
+      const city = court.Address.slice(0, 3)
+      const latLan = parseLatLng(court.LatLng)
       if (!latLan) return [{ type: 'text', text: messages.notFound }]
       const weatherStr = (await getWeatherInfo(city)) as string
 
       return [
         {
           type: 'location',
-          title: placeInfo.Name,
-          address: placeInfo.Address,
+          title: court.Name,
+          address: court.Address,
           latitude: latLan.latitude,
           longitude: latLan.longitude
         },
