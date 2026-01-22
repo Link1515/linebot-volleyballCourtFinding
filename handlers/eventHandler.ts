@@ -39,7 +39,7 @@ export async function eventHandler(event: webhook.Event) {
 
   if (!replyMessages || replyMessages.length === 0 || !isReplyableEvent(event)) return
 
-  client.replyMessage({
+  await client.replyMessage({
     replyToken: event.replyToken,
     messages: replyMessages
   })
