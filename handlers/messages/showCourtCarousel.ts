@@ -37,7 +37,7 @@ export async function showCourtCarousel(message: webhook.LocationMessageContent)
     return [{ type: 'text', text: messages.noCourtAround }]
   }
 
-  const flexCourts = createCourtFlex(nearbyCourts)
+  const courtFlex = createCourtFlex(nearbyCourts)
 
-  return [flexCourts, { type: 'text', text: messages.selectCourt }]
+  return [courtFlex, { type: 'text', text: messages.selectCourt }]
 }
