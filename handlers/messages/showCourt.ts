@@ -1,13 +1,11 @@
 import { messagingApi } from '@line/bot-sdk'
-import type { Court } from '@data/types'
-import rawCourts from '@data/courts.json'
 import messages from '@data/messages.json'
 import { getWeatherInfo } from '@api/getWeatherInfo'
-import { parseLatLng } from '@projectRoot/utils'
-
-const courts = rawCourts as Court[]
+import { parseLatLng, getCourts } from '@utils/index'
 
 export async function showCourt(id: number): Promise<messagingApi.Message[]> {
+  const courts = await getCourts()
+
   for (const court of courts) {
     if (court.GymID === id) {
       const city = court.Address.slice(0, 3)

@@ -19,7 +19,7 @@ export async function eventHandler(event: webhook.Event) {
           replyMessages = textHandler(event.message)
           break
         case 'location':
-          replyMessages = locationHandler(event.message)
+          replyMessages = await locationHandler(event.message)
           break
       }
       break

@@ -1,16 +1,16 @@
 import { messagingApi, webhook } from '@line/bot-sdk'
-import rawCourts from '@data/courts.json'
 import messages from '@data/messages.json'
 import type { Court } from '@data/types'
-import { calculateDistance, LatLng, parseLatLng } from '@utils/index'
+import { calculateDistance, LatLng, parseLatLng, getCourts } from '@utils/index'
 import { createCourtFlex } from '@template/index'
 
 const AMOUNT_OF_COURT = 5
 // in km
 const MAX_DISTANCE = 15
-const courts = rawCourts as Court[]
 
-export function showCourtCarousel(message: webhook.LocationMessageContent): messagingApi.Message[] {
+export async function showCourtCarousel(message: webhook.LocationMessageContent): Promise<messagingApi.Message[]> {
+  const courts = await getCourts()
+
   const userLocation: LatLng = {
     latitude: message.latitude,
     longitude: message.longitude
