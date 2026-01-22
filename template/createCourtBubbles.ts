@@ -1,8 +1,8 @@
 import type { messagingApi } from '@line/bot-sdk'
-import type { CourtWithDistance } from '@data/types'
+import type { Court } from '@data/types'
 import messages from '@data/messages.json'
 
-export function createCourtBubbles(courts: CourtWithDistance[]) {
+export function createCourtBubbles(courts: Court[]) {
   const courtBubbles: messagingApi.FlexBubble[] = courts.map(court => ({
     type: 'bubble',
     size: 'micro',
@@ -29,7 +29,7 @@ export function createCourtBubbles(courts: CourtWithDistance[]) {
           type: 'text',
           text: messages.distance.replace(
             '{distance}',
-            (Math.round((court.distance + Number.EPSILON) * 100) / 100).toString()
+            (Math.round((court.Distance + Number.EPSILON) * 100) / 100).toString()
           ),
           size: '12px',
           align: 'center',

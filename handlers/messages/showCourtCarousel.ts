@@ -1,7 +1,7 @@
 import { messagingApi, webhook } from '@line/bot-sdk'
 import rawCourts from '@data/courts.json'
 import messages from '@data/messages.json'
-import type { Court, CourtWithDistance } from '@data/types'
+import type { Court } from '@data/types'
 import { calculateDistance, LatLng, parseLatLng } from '@utils/index'
 import { createCourtFlex } from '@template/index'
 
@@ -18,28 +18,26 @@ export function showCourtCarousel(message: webhook.LocationMessageContent): mess
 
   const amount = Math.max(1, AMOUNT_OF_COURT)
 
-  const courtWithDistance: CourtWithDistance[] = []
+  let nearbyCourts: Court[] = []
   for (const court of courts) {
     const target = parseLatLng(court.LatLng)
     if (!target) continue
 
-    const distance = calculateDistance(userLocation, target)
-    if (distance > MAX_DISTANCE) continue
+    const d = calculateDistance(userLocation, target)
+    if (d > MAX_DISTANCE) continue
 
-    courtWithDistance.push({
-      ...court,
-      distance
-    })
+    court.Distance = d
+    nearbyCourts.push(court)
   }
 
-  courtWithDistance.sort((a, b) => a.distance - b.distance)
-  const resultCourt = courtWithDistance.slice(0, amount)
+  nearbyCourts.sort((a, b) => a.Distance - b.Distance)
+  nearbyCourts = nearbyCourts.slice(0, amount)
 
-  if (resultCourt.length === 0) {
+  if (nearbyCourts.length === 0) {
     return [{ type: 'text', text: messages.noCourtAround }]
   }
 
-  const flexCourts = createCourtFlex(resultCourt)
+  const flexCourts = createCourtFlex(nearbyCourts)
 
   return [flexCourts, { type: 'text', text: messages.selectCourt }]
 }

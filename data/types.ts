@@ -18,5 +18,3 @@ export interface Court {
   Declaration: null | string
   LandAttrName: string
 }
-
-export type CourtWithDistance = Court & { distance: number }
