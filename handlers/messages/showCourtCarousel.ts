@@ -26,7 +26,7 @@ export async function showCourtCarousel(message: webhook.LocationMessageContent)
     const d = calculateDistance(userLocation, target)
     if (d > MAX_DISTANCE) continue
 
-    court.Distance = d
+    court.Distance = Math.round(d * 100) / 100
     nearbyCourts.push(court)
   }
 

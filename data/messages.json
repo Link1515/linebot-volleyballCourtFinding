@@ -7,7 +7,7 @@
   "noCourtAround": "附近沒有球場",
   "selectCourt": "請點選您想去的球場",
   "userSelection": "前往 {name}",
-  "distance": "距離: 約 {distance} 公里",
+  "distance": "距離: 約 {distance}",
   "tryAgain": "請再操作一次",
   "notFound": "找不到這個地點",
   "weatherInfo": "{city}今日{description}\n🔺 最高溫 {maxTemperature} 度\n🔺 最低溫 {minTemperature} 度\n🔺 降雨機率 {precipitation}%",

@@ -27,10 +27,7 @@ export function createCourtBubbles(courts: Court[]) {
         },
         {
           type: 'text',
-          text: messages.distance.replace(
-            '{distance}',
-            (Math.round((court.Distance + Number.EPSILON) * 100) / 100).toString()
-          ),
+          text: messages.distance.replace('{distance}', formatDistance(court.Distance)),
           size: '12px',
           align: 'center',
           weight: 'bold'
@@ -68,4 +65,8 @@ export function createCourtBubbles(courts: Court[]) {
   }))
 
   return courtBubbles
+}
+
+function formatDistance(distance: number) {
+  return distance > 1 ? `${distance} 公里` : `${distance * 1000} 公尺`
 }
