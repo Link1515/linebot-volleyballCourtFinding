@@ -3,7 +3,8 @@ import { client } from '@projectRoot/linebot'
 import { textHandler } from '@projectRoot/handlers/textHandler'
 import { locationHandler } from '@handlers/locationHandler'
 import { postbackHanlder } from '@handlers/postbackHanlder'
-import { msgFollow, msgJoin } from '@handlers/messages'
+import { followHandler } from '@handlers/followHandler'
+import { joinHandler } from '@handlers/joinHandler'
 
 type ReplyableEvent = Extract<webhook.Event, { replyToken?: unknown }> & { replyToken: string }
 
@@ -28,11 +29,11 @@ export async function eventHandler(event: webhook.Event) {
       break
 
     case 'follow':
-      replyMessages = msgFollow()
+      replyMessages = followHandler()
       break
 
     case 'join':
-      replyMessages = msgJoin()
+      replyMessages = joinHandler()
       break
   }
 
