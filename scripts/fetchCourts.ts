@@ -1,3 +1,3 @@
-import { fetchCourts } from '@utils/index'
+import { fetchCourts } from '@utils/fetchCourts'
 
 fetchCourts()

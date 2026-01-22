@@ -13,6 +13,7 @@ RUN mkdir -p data scripts
 COPY tsconfig.json ./
 COPY data/types.ts ./data/
 COPY scripts/fetchCourts.ts ./scripts/
+COPY utils/fetchCourts.ts ./utils/
 RUN bun fetchCourts
 
 FROM oven/bun:1.3.6-slim AS runtime
