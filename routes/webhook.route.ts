@@ -1,7 +1,7 @@
 import express, { Request, Response } from 'express'
 import { middleware, webhook } from '@line/bot-sdk'
 import { middlewareConfig } from '@projectRoot/linebot'
-import { eventHandler } from '@handlers/eventHandler'
+import { dispatchEvents } from '@handlers/dispatchEvents'
 
 const router = express.Router()
 
@@ -17,15 +17,7 @@ router.post('/', async (req: Request, res: Response) => {
 
   res.status(200).json({ status: 'success' })
 
-  void Promise.allSettled(
-    body.events.map(async event => {
-      try {
-        await eventHandler(event)
-      } catch (err) {
-        console.error(err)
-      }
-    })
-  )
+  void dispatchEvents(body.events)
 })
 
 export default router
