@@ -12,7 +12,9 @@ const agent = new https.Agent({
   rejectUnauthorized: false
 })
 
-axios.interceptors.response.use(
+const axiosInstance = axios.create()
+
+axiosInstance.interceptors.response.use(
   function (response) {
     return response
   },
@@ -20,7 +22,7 @@ axios.interceptors.response.use(
     // 如果 https 過期，以 http 再次發送
     if (error.code === 'CERT_HAS_EXPIRED') {
       console.log('https expired')
-      return axios.get(GYM_API_URL, {
+      return axiosInstance.get(GYM_API_URL, {
         httpsAgent: agent
       })
     }
@@ -30,7 +32,7 @@ axios.interceptors.response.use(
 
 export async function fetchCourts() {
   try {
-    const { data } = await axios.get(GYM_API_URL)
+    const { data } = await axiosInstance.get(GYM_API_URL)
     const courts = data.filter((court: Court) => court.OpenState !== 'N')
     await writeFile(resolve(__dirname, '../data/courts.json'), JSON.stringify(courts), 'utf-8')
 
